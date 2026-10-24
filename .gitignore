@@ -1,0 +1,28 @@
+# Python virtual environment
+.venv/
+
+# Environment variables and API keys
+.env
+.env.*
+
+# Allow an example environment template
+!.env.example
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# ChromaDB persistent database
+chroma_db/
+
+# IDE settings
+.vscode/
+
+# Test and coverage files
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Operating system files
+.DS_Store
+Thumbs.db
