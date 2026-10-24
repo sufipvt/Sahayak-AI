@@ -52,7 +52,10 @@ function Flow({ items }) {
 
 export default function Architecture() {
   return (
-    <Page title="System architecture" subtitle="Retrieval-Augmented Generation (RAG) pipeline behind Sahayak.">
+    <Page title="System architecture" subtitle="Planned Retrieval-Augmented Generation (RAG) pipeline for Sahayak.">
+      <p className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+        This diagram describes a proposed design. The backend, search pipeline, and supporting services shown here are not connected to the frontend.
+      </p>
       <div className="grid xl:grid-cols-[1fr_240px] gap-6">
         <div className="space-y-6">
           <Card className="p-5 sm:p-6 bg-slate-50/60">
@@ -62,7 +65,7 @@ export default function Architecture() {
                 Ingestion & indexing
               </h2>
               <span className="inline-flex items-center gap-1.5 text-sm font-semibold px-3 py-1 rounded-full bg-saffron-100 text-saffron-700 border border-saffron-200">
-                <RefreshCw className="w-4 h-4" /> Weekly auto-refresh
+                <RefreshCw className="w-4 h-4" /> Planned weekly refresh
               </span>
             </div>
             <Flow items={offline} />

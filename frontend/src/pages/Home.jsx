@@ -1,7 +1,20 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Mic, Search, UserRound, ScanSearch, ListChecks, BadgeCheck, GraduationCap, Tractor, HeartHandshake, Store, Upload, MapPin, Languages } from 'lucide-react'
-import { exampleChips, howItWorks } from '../data/sample.js'
+import { Mic, Search, UserRound, ScanSearch, ListChecks, BadgeCheck, GraduationCap, Tractor, HeartHandshake, Store, Upload, MapPin, Languages, Info } from 'lucide-react'
+
+const exampleChips = [
+  { label: 'Student', text: 'I am a student looking for education support' },
+  { label: 'Farmer', text: 'I am a farmer looking for agriculture support' },
+  { label: 'Senior citizen', text: 'I am a senior citizen looking for support' },
+  { label: 'Woman entrepreneur', text: 'I want to start a small business' },
+]
+
+const howItWorks = [
+  { title: 'Describe yourself', text: 'Use a plain-language prompt; voice input will be added later.' },
+  { title: 'Review your profile', text: 'Check the details you choose to share before searching.' },
+  { title: 'Explore relevant schemes', text: 'When connected, a matching service can compare details with scheme rules.' },
+  { title: 'Find reliable guidance', text: 'When connected, review verified benefits, official links and nearby help.' },
+]
 
 const chipIcons = { Student: GraduationCap, Farmer: Tractor, 'Senior citizen': HeartHandshake, 'Woman entrepreneur': Store }
 const stepIcons = [UserRound, ScanSearch, ListChecks, BadgeCheck]
@@ -15,16 +28,20 @@ export default function Home() {
       <section className="bg-gradient-to-b from-navy-900 to-navy-800 text-white">
         <div className="max-w-4xl mx-auto px-4 pt-12 pb-20 sm:pt-16 text-center">
           <p className="inline-flex items-center gap-2 text-sm font-semibold text-saffron-200 bg-white/10 px-3 py-1 rounded-full">
-            <Languages className="w-4 h-4" /> English · हिन्दी · Type or speak
+            <Languages className="w-4 h-4" /> English · हिन्दी · Multilingual support planned
           </p>
           <h1 className="mt-5 text-3xl sm:text-5xl font-extrabold leading-tight">
-            Find the government schemes <span className="text-saffron-400">you’re entitled to</span>
+            Government scheme information, <span className="text-saffron-400">made easier</span>
           </h1>
           <p className="mt-4 text-lg text-navy-100 max-w-2xl mx-auto">
-            Describe yourself in plain words. Sahayak matches you with central schemes and shows why you qualify, with official sources.
+            Sahayak is designed to help you understand government schemes and where to find official information.
           </p>
 
           <div className="mt-8 bg-white rounded-2xl p-3 shadow-xl text-left">
+            <p className="flex items-center gap-2 px-3 pt-2 text-sm text-amber-800" role="status">
+              <Info className="w-4 h-4 shrink-0" />
+              Scheme search is not connected yet. No eligibility checks or scheme matches are provided.
+            </p>
             <textarea
               rows={3}
               value={text}
@@ -96,9 +113,9 @@ export default function Home() {
 
       <section className="max-w-7xl mx-auto px-4 mt-10 grid sm:grid-cols-3 gap-4">
         {[
-          { Icon: Mic, title: 'Speak your question', text: 'Voice input for people who prefer not to type.', to: '/voice' },
-          { Icon: Upload, title: 'Upload a document', text: 'Read details from an income or caste certificate.', to: '/upload' },
-          { Icon: MapPin, title: 'Find a help centre', text: 'Locate the nearest CSC to apply in person.', to: '/centres' },
+          { Icon: Mic, title: 'Speak your question', text: 'Voice capture will be available when speech services are connected.', to: '/voice' },
+          { Icon: Upload, title: 'Upload a document', text: 'Certificate reading will be available when document processing is connected.', to: '/upload' },
+          { Icon: MapPin, title: 'Find a help centre', text: 'Verified centre search will be available when location data is connected.', to: '/centres' },
         ].map(({ Icon, title, text, to }) => (
           <Link key={title} to={to} className="bg-white rounded-2xl border border-slate-200 p-5 flex gap-4 hover:shadow-md hover:border-navy-200 transition">
             <span className="w-11 h-11 rounded-xl bg-saffron-50 text-saffron-600 grid place-items-center shrink-0">

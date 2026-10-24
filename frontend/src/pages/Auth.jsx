@@ -1,6 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { Compass, Phone, Lock, User, Mail } from 'lucide-react'
-import { Card, Btn } from '../components/ui.jsx'
+import { Link } from 'react-router-dom'
+import { Compass, Phone, Lock, User, Mail, Info } from 'lucide-react'
+import { Card } from '../components/ui.jsx'
 
 function Field({ icon: Icon, label, type = 'text', placeholder }) {
   return (
@@ -15,7 +15,6 @@ function Field({ icon: Icon, label, type = 'text', placeholder }) {
 }
 
 export default function Auth({ mode }) {
-  const navigate = useNavigate()
   const isLogin = mode === 'login'
 
   return (
@@ -31,27 +30,22 @@ export default function Auth({ mode }) {
           </p>
         </div>
 
-        <form
-          className="mt-6 space-y-4"
-          onSubmit={(e) => {
-            e.preventDefault()
-            navigate('/profile')
-          }}
-        >
-          {!isLogin && <Field icon={User} label="Full name" placeholder="Rahul Kumar" />}
+        <form className="mt-6 space-y-4" onSubmit={(e) => e.preventDefault()}>
+          {!isLogin && <Field icon={User} label="Full name" placeholder="Your name" />}
           <Field icon={Phone} label="Mobile number" placeholder="98XXXXXXXX" />
           {!isLogin && <Field icon={Mail} label="Email (optional)" placeholder="you@example.com" />}
           <Field icon={Lock} label="Password" type="password" placeholder="••••••••" />
           {isLogin && (
-            <div className="text-right">
-              <a className="text-sm text-navy-600 hover:underline" href="#">Login with OTP instead</a>
-            </div>
+            <p className="text-right text-sm text-slate-500">OTP login is not connected yet.</p>
           )}
-          <Btn type="submit" variant="primary" className="w-full py-3 text-lg">
+          <button type="submit" disabled className="w-full py-3 text-lg rounded-xl font-semibold bg-navy-800 text-white opacity-50 cursor-not-allowed">
             {isLogin ? 'Login' : 'Register'}
-          </Btn>
+          </button>
         </form>
 
+        <p className="mt-4 flex items-start gap-2 text-sm text-amber-800">
+          <Info className="w-4 h-4 shrink-0 mt-0.5" /> Authentication is not connected; this form will not create an account or sign you in.
+        </p>
         <p className="mt-6 text-center text-slate-600">
           {isLogin ? 'New to Sahayak? ' : 'Already registered? '}
           <Link to={isLogin ? '/register' : '/login'} className="font-semibold text-saffron-700 hover:underline">
