@@ -21,11 +21,14 @@ load_dotenv()
 
 LLM_MODEL = os.getenv("LLM_MODEL", "openai/gpt-oss-120b")
 
+# gpt-oss "thinks" before answering. "low" thinking is much faster and is
+# enough, because the answer comes from the given context. Other models
+# (e.g. qwen) do not take this setting.
+extra = {"reasoning_effort": "low"} if "gpt-oss" in LLM_MODEL else {}
+
 llm = ChatGroq(
     api_key=os.getenv("GROQ_API_KEY"),
     model=LLM_MODEL,
     temperature=0.1,
-    # gpt-oss "thinks" before answering. "low" thinking is much faster
-    # and is enough, because the answer comes from the given context.
-    reasoning_effort="low"
+    **extra
 )
