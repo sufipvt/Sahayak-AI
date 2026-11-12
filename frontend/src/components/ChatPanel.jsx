@@ -1,13 +1,32 @@
 import { useEffect, useRef, useState } from 'react'
-import { Send, Loader2, AlertTriangle } from 'lucide-react'
+import { Send, Loader2, AlertTriangle, Mic, Square } from 'lucide-react'
 import Answer from './Answer.jsx'
+import { canListen, listen } from '../voice.js'
 
 // A list of messages plus a text box. The page decides what "send" does.
 //   messages: [{ role: 'user' | 'assistant', content, sources, error }]
 
 export default function ChatPanel({ messages, loading, onSend, placeholder, emptyText }) {
   const [text, setText] = useState('')
+  const [lang, setLang] = useState('en-IN')     // voice language
+  const [listening, setListening] = useState(false)
   const bottomRef = useRef(null)
+  const recognitionRef = useRef(null)
+
+  // Voice input: the spoken words are put in the text box (not sent),
+  // so the user can correct a misheard number before pressing Send.
+  const toggleMic = () => {
+    if (listening) {
+      recognitionRef.current?.stop()
+      return
+    }
+    setListening(true)
+    recognitionRef.current = listen(
+      lang,
+      (spoken) => setText((old) => (old ? `${old} ${spoken}` : spoken)),
+      () => setListening(false)
+    )
+  }
 
   // Scroll to the newest message.
   useEffect(() => {
@@ -52,6 +71,12 @@ export default function ChatPanel({ messages, loading, onSend, placeholder, empt
           )
         )}
 
+        {listening && (
+          <p className="flex items-center gap-2 text-rose-700">
+            <Mic className="w-4 h-4" /> Listening… speak now, then check the text before sending.
+          </p>
+        )}
+
         {loading && (
           <p className="flex items-center gap-2 text-slate-500">
             <Loader2 className="w-4 h-4 animate-spin" /> Sahayak is checking the official sources…
@@ -69,12 +94,35 @@ export default function ChatPanel({ messages, loading, onSend, placeholder, empt
           placeholder={placeholder}
           className="flex-1 resize-none px-2 py-1.5 outline-none min-w-0"
         />
+        {canListen && (
+          <div className="flex items-center gap-1">
+            <select
+              value={lang}
+              onChange={(e) => setLang(e.target.value)}
+              className="h-11 rounded-xl border border-slate-200 bg-white px-1 text-sm"
+              title="Voice language"
+            >
+              <option value="en-IN">EN</option>
+              <option value="hi-IN">हिं</option>
+            </select>
+            <button
+              type="button"
+              onClick={toggleMic}
+              className={`w-11 h-11 rounded-xl grid place-items-center ${listening ? 'bg-rose-100 text-rose-700' : 'bg-saffron-100 text-saffron-700 hover:bg-saffron-200'}`}
+              title={listening ? 'Stop listening' : 'Speak your question'}
+              aria-label={listening ? 'Stop listening' : 'Speak your question'}
+            >
+              {listening ? <Square className="w-4 h-4" /> : <Mic className="w-5 h-5" />}
+            </button>
+          </div>
+        )}
         <button
           onClick={send}
           disabled={loading || !text.trim()}
-          className="inline-flex items-center gap-1.5 px-4 h-11 rounded-xl bg-saffron-500 text-navy-900 font-semibold hover:bg-saffron-400 disabled:opacity-50"
+          aria-label="Send"
+          className="inline-flex items-center gap-1.5 px-3 sm:px-4 h-11 rounded-xl bg-saffron-500 text-navy-900 font-semibold hover:bg-saffron-400 disabled:opacity-50"
         >
-          <Send className="w-4 h-4" /> Send
+          <Send className="w-4 h-4" /> <span className="hidden sm:inline">Send</span>
         </button>
       </div>
     </div>

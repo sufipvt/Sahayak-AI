@@ -1,6 +1,35 @@
+import { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
-import { ExternalLink, Info, AlertTriangle } from 'lucide-react'
+import { ExternalLink, Info, AlertTriangle, Volume2, Square } from 'lucide-react'
 import { Citation } from './ui.jsx'
+import { canSpeak, speak, stopSpeaking } from '../voice.js'
+
+// Reads the answer aloud with the browser's voice (hidden if not supported).
+function SpeakButton({ text }) {
+  const [speaking, setSpeaking] = useState(false)
+
+  // Stop talking if the answer disappears (e.g. the user leaves the page).
+  useEffect(() => () => { if (speaking) stopSpeaking() }, [speaking])
+
+  if (!canSpeak) return null
+
+  const toggle = () => {
+    if (speaking) {
+      stopSpeaking()
+      setSpeaking(false)
+    } else {
+      setSpeaking(true)
+      speak(text, () => setSpeaking(false))
+    }
+  }
+
+  return (
+    <button onClick={toggle} className="inline-flex items-center gap-1 text-xs font-semibold text-navy-600 hover:text-navy-800"
+      aria-label={speaking ? 'Stop reading' : 'Read answer aloud'}>
+      {speaking ? <><Square className="w-3.5 h-3.5" /> Stop</> : <><Volume2 className="w-4 h-4" /> Listen</>}
+    </button>
+  )
+}
 
 // Shows one answer from Sahayak:
 //   1. the answer text (markdown), with [Source n] turned into small badges
@@ -64,11 +93,14 @@ export default function Answer({ message }) {
         </div>
       )}
 
-      {disclaimer && (
-        <p className="mt-2 flex items-start gap-1.5 text-xs text-slate-500">
-          <Info className="w-3.5 h-3.5 shrink-0 mt-0.5" /> {disclaimer}
-        </p>
-      )}
+      <div className="mt-2 flex flex-wrap items-start justify-between gap-2">
+        {disclaimer && (
+          <p className="flex items-start gap-1.5 text-xs text-slate-500">
+            <Info className="w-3.5 h-3.5 shrink-0 mt-0.5" /> {disclaimer}
+          </p>
+        )}
+        <SpeakButton text={content} />
+      </div>
     </div>
   )
 }

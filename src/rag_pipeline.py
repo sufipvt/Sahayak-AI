@@ -38,6 +38,9 @@ RULES:
    you know it. Leave it out instead.
 12. Format: short headings and bullet lists. Do not use tables.
    Write citations exactly like [Source 1].
+13. Keep the answer under 150 words, unless the user asks for more
+   detail. Cover the 3 best schemes at most. List documents and
+   application steps as short bullet points.
 
 CONVERSATION SO FAR:
 {history}
