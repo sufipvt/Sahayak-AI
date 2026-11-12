@@ -1,20 +1,51 @@
 import { useState, useEffect } from 'react'
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { Compass, Menu, X, Info } from 'lucide-react'
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Compass, Menu, X, Info, LogOut, UserRound } from 'lucide-react'
+import { useAuth } from '../auth.jsx'
 
-const links = [
-  { to: '/', label: 'Home' },
-  { to: '/results', label: 'Find schemes' },
-  { to: '/upload', label: 'Upload' },
-  { to: '/centres', label: 'Help centres' },
-  { to: '/history', label: 'History' },
-  { to: '/architecture', label: 'Architecture' },
-  { to: '/admin', label: 'Admin' },
+// "who" decides who sees the link: everyone, logged-in users, or admins.
+const allLinks = [
+  { to: '/', label: 'Home', who: 'all' },
+  { to: '/results', label: 'Find schemes', who: 'all' },
+  { to: '/upload', label: 'Upload', who: 'all' },
+  { to: '/centres', label: 'Help centres', who: 'all' },
+  { to: '/history', label: 'History', who: 'user' },
+  { to: '/profile', label: 'Profile', who: 'user' },
+  { to: '/architecture', label: 'Architecture', who: 'all' },
+  { to: '/admin', label: 'Admin', who: 'admin' },
 ]
 
 export default function Layout() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const { user, logout } = useAuth()
+
+  const links = allLinks.filter((l) =>
+    l.who === 'all' || (l.who === 'user' && user) || (l.who === 'admin' && user?.role === 'admin')
+  )
+
+  const onLogout = () => {
+    logout()
+    navigate('/')
+  }
+
+  // The Login button for guests; the name + Logout for logged-in users.
+  const account = (mobile) =>
+    user ? (
+      <div className={`flex items-center gap-2 ${mobile ? 'mt-2 justify-between' : 'ml-2'}`}>
+        <span className="flex items-center gap-1.5 text-sm text-navy-100" title={user.email}>
+          <UserRound className="w-4 h-4" /> {user.name}
+        </span>
+        <button onClick={onLogout} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-white/20 text-sm font-semibold hover:bg-white/10">
+          <LogOut className="w-4 h-4" /> Logout
+        </button>
+      </div>
+    ) : (
+      <Link to="/login" className={`px-4 py-2 rounded-lg bg-saffron-500 text-navy-900 font-semibold hover:bg-saffron-400 ${mobile ? 'mt-2 text-center' : 'ml-2'}`}>
+        Login
+      </Link>
+    )
 
   useEffect(() => {
     setOpen(false)
@@ -38,31 +69,27 @@ export default function Layout() {
             <span className="text-xl font-extrabold tracking-tight">Sahayak</span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1 ml-auto">
+          <nav className="hidden xl:flex items-center gap-1 ml-auto whitespace-nowrap">
             {links.map((l) => (
               <NavLink key={l.to} to={l.to} end={l.to === '/'} className={navClass}>
                 {l.label}
               </NavLink>
             ))}
-            <Link to="/login" className="ml-2 px-4 py-2 rounded-lg bg-saffron-500 text-navy-900 font-semibold hover:bg-saffron-400">
-              Login
-            </Link>
+            {account(false)}
           </nav>
 
-          <button className="lg:hidden ml-auto p-2 rounded-lg hover:bg-white/10" onClick={() => setOpen(!open)} aria-label="Menu">
+          <button className="xl:hidden ml-auto p-2 rounded-lg hover:bg-white/10" onClick={() => setOpen(!open)} aria-label="Menu">
             {open ? <X /> : <Menu />}
           </button>
         </div>
         {open && (
-          <nav className="lg:hidden border-t border-white/10 px-4 py-3 flex flex-col gap-1">
+          <nav className="xl:hidden border-t border-white/10 px-4 py-3 flex flex-col gap-1">
             {links.map((l) => (
               <NavLink key={l.to} to={l.to} end={l.to === '/'} className={navClass}>
                 {l.label}
               </NavLink>
             ))}
-            <Link to="/login" className="mt-2 px-4 py-2 rounded-lg bg-saffron-500 text-navy-900 font-semibold text-center">
-              Login
-            </Link>
+            {account(true)}
           </nav>
         )}
       </header>

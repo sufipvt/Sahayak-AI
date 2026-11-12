@@ -32,3 +32,5 @@ frontend/dist/
 # Operating system files
 .DS_Store
 Thumbs.db
+# SQLite database (users, profiles, chats - personal data)
+sahayak.db

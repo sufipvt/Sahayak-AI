@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { ListChecks, MessageCircleQuestion } from 'lucide-react'
+import { ListChecks, MessageCircleQuestion, Plus } from 'lucide-react'
 import { Page, Card, SchemeCard } from '../components/ui.jsx'
 import ChatPanel from '../components/ChatPanel.jsx'
 import ProfileCard from '../components/ProfileCard.jsx'
-import { sendChat, matchSchemes, errorMessage } from '../api.js'
-import { loadProfile, saveProfile, loadChat, saveChat, clearAll, lastMessages } from '../store.js'
+import { sendChat, matchSchemes, getConversation, errorMessage } from '../api.js'
+import { loadProfile, saveProfile, loadChat, saveChat, clearChatAndProfile, lastMessages, EMPTY_CHAT } from '../store.js'
+import { useAuth } from '../auth.jsx'
 
 const EXAMPLES = [
   'I am a 20-year-old engineering student from Haryana and my family income is under 3 lakh',
@@ -16,10 +17,11 @@ const EXAMPLES = [
 export default function Results() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { user } = useAuth()
 
   // 1. State: the profile and the chat are also saved in the browser.
   const [profile, setProfile] = useState(loadProfile)
-  const [chat, setChat] = useState(loadChat)   // { messages, matches, followUps }
+  const [chat, setChat] = useState(loadChat)   // { messages, matches, followUps, conversationId }
   const [loading, setLoading] = useState(false)
 
   useEffect(() => saveProfile(profile), [profile])
@@ -33,7 +35,7 @@ export default function Results() {
     setLoading(true)
 
     try {
-      const data = await sendChat({ message, profile, history })
+      const data = await sendChat({ message, profile, history, conversationId: chat.conversationId })
 
       // The backend returns the updated profile: this is the chat "memory".
       setProfile(data.profile)
@@ -44,9 +46,11 @@ export default function Results() {
           sources: data.sources,
           disclaimer: data.disclaimer,
           llm_available: data.llm_available,
+          message_id: data.message_id,     // only for logged-in users (rating)
         }],
         matches: data.matches.length > 0 ? data.matches : chat.matches,
         followUps: data.follow_up_questions,
+        conversationId: data.conversation_id,  // the next message continues this chat
       })
     } catch (error) {
       setChat({ ...chat, messages: [...messages, { role: 'assistant', content: errorMessage(error), error: true }] })
@@ -55,17 +59,58 @@ export default function Results() {
     }
   }
 
-  // 3. A question typed on the Home page arrives here and is sent once.
-  const sentFromHome = useRef(false)
+  // 3. Arriving from another page:
+  //    - Home sends a question  -> send it once
+  //    - History opens a chat   -> load its messages from the server
+  const handled = useRef(false)
   useEffect(() => {
     const question = location.state?.question
-    if (question && !sentFromHome.current) {
-      sentFromHome.current = true
-      navigate(location.pathname, { replace: true, state: null })
+    const conversationId = location.state?.conversationId
+    if (handled.current || (!question && !conversationId)) return
+    handled.current = true
+    navigate(location.pathname, { replace: true, state: null })
+
+    if (question) {
       send(question)
+    } else {
+      openConversation(conversationId)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  async function openConversation(conversationId) {
+    try {
+      const conversation = await getConversation(conversationId)
+      const messages = conversation.messages.map((m) => ({
+        role: m.role,
+        content: m.content,
+        sources: m.sources,
+        message_id: m.role === 'assistant' ? m.id : undefined,
+        rating: m.rating,
+      }))
+      const data = await matchSchemes(profile)
+      setChat({ messages, matches: data.matches, followUps: data.follow_up_questions, conversationId })
+    } catch (error) {
+      alert(errorMessage(error))
+    }
+  }
+
+  // If we already know the profile (e.g. restored after login) but have no
+  // matches yet, run the eligibility check once (no AI, instant).
+  useEffect(() => {
+    const known = Object.values(profile).some((v) => v !== null && v !== undefined)
+    if (known && chat.matches.length === 0 && !location.state) {
+      matchSchemes(profile)
+        .then((data) => setChat((c) => ({ ...c, matches: data.matches, followUps: data.follow_up_questions })))
+        .catch(() => {})
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Start a new conversation (the profile is kept).
+  function newChat() {
+    setChat(EMPTY_CHAT)
+  }
 
   // 4. The user corrected the profile: re-check eligibility (no AI, instant).
   async function onSaveProfile(newProfile) {
@@ -79,9 +124,9 @@ export default function Results() {
   }
 
   function onClear() {
-    clearAll()
+    clearChatAndProfile()
     setProfile({})
-    setChat({ messages: [], matches: [], followUps: [] })
+    setChat(EMPTY_CHAT)
   }
 
   return (
@@ -89,6 +134,16 @@ export default function Results() {
       <div className="grid lg:grid-cols-[1fr_380px] gap-6 items-start">
         {/* Left: the conversation */}
         <Card className="p-4 sm:p-5">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2 text-sm">
+            <span className="text-slate-500">
+              {user ? 'Your chats are saved in History.' : 'Guest mode: this chat is not saved. Log in to keep it.'}
+            </span>
+            {chat.messages.length > 0 && (
+              <button onClick={newChat} className="inline-flex items-center gap-1 font-semibold text-navy-700 hover:underline">
+                <Plus className="w-4 h-4" /> New chat
+              </button>
+            )}
+          </div>
           <ChatPanel
             messages={chat.messages}
             loading={loading}

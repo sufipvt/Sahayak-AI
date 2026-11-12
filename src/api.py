@@ -2,8 +2,9 @@
 import time
 from typing import List, Literal, Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
+from sqlalchemy.orm import Session
 
 # rag_pipeline loads the models and ChromaDB once, when the server starts.
 from rag_pipeline import ask_sahayak, DISCLAIMER
@@ -13,9 +14,18 @@ from profile_extractor import (
 )
 from eligibility import find_matching_schemes
 from scheme_fetcher import load_schemes, load_scheme_text
+from database import get_db
+import auth
+import user_routes
+import admin_routes
 
 
 app = FastAPI(title="Sahayak API")
+
+# Login, the user's own data, and admin endpoints live in their own files.
+app.include_router(auth.router)
+app.include_router(user_routes.router)
+app.include_router(admin_routes.router)
 
 
 # --------------------------------------------------
@@ -44,6 +54,7 @@ class ChatRequest(BaseModel):
     profile: Optional[UserProfile] = None     # the frontend sends back the last profile
     history: List[ChatMessage] = []           # the last few messages (we use the last 4)
     scheme_id: Optional[str] = None           # set this to ask about one scheme only
+    conversation_id: Optional[int] = None     # logged-in users: continue this conversation
 
 
 # --------------------------------------------------
@@ -123,13 +134,19 @@ def schemes_match(request: MatchRequest):
 
 
 @app.post("/api/chat")
-def chat(request: ChatRequest):
+def chat(
+    request: ChatRequest,
+    user=Depends(auth.get_optional_user),   # None for guests
+    db: Session = Depends(get_db),
+):
     """
     The main endpoint:
       1. read any personal details from the message and update the profile
       2. check eligibility and answer with RAG and citations
-      3. send the updated profile back (the frontend stores it and
+      3. logged-in users: save the conversation (and the profile, if they agreed)
+      4. send the updated profile back (the frontend stores it and
          sends it with the next message - this is the "memory")
+    Guests can chat too; nothing is saved for them.
     """
 
     start = time.perf_counter()
@@ -157,14 +174,25 @@ def chat(request: ChatRequest):
     history = [message.model_dump() for message in request.history[-4:]]
     result = ask_sahayak(request.message, profile, scheme_ids, history)
 
+    # Step 3: Logged-in users: save the question and answer.
+    conversation_id, message_id = None, None
+
+    if user is not None:
+        conversation_id, message_id = user_routes.save_chat_turn(
+            db, user, request.conversation_id, request.message, result
+        )
+        user_routes.update_profile_if_consented(db, user, profile)
+
     total_seconds = time.perf_counter() - start
     print(f"Chat: profile {extract_seconds:.1f}s, total {total_seconds:.1f}s")
 
-    # Step 3: Send everything back, including the updated profile.
+    # Step 4: Send everything back, including the updated profile.
     return {
         **result,
         "profile": profile,
         "follow_up_questions": get_follow_up_questions(profile),
+        "conversation_id": conversation_id,
+        "message_id": message_id,     # used to rate this answer
         "seconds": round(total_seconds, 1),
     }
 

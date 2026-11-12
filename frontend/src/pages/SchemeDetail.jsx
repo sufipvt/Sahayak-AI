@@ -1,10 +1,43 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ArrowLeft, Building2, ExternalLink, Clock, Info, CheckCircle2, MessageSquare, Loader2 } from 'lucide-react'
+import { ArrowLeft, Building2, ExternalLink, Clock, Info, CheckCircle2, MessageSquare, Loader2, Bookmark, BookmarkCheck } from 'lucide-react'
 import { Page, Card, Tag, StatusBadge, UnverifiedNote } from '../components/ui.jsx'
 import ChatPanel from '../components/ChatPanel.jsx'
-import { getScheme, matchSchemes, sendChat, errorMessage } from '../api.js'
+import { getScheme, matchSchemes, sendChat, getSavedSchemes, saveScheme, unsaveScheme, errorMessage } from '../api.js'
 import { loadProfile, saveProfile, lastMessages } from '../store.js'
+import { useAuth } from '../auth.jsx'
+
+// Save / unsave this scheme (logged-in users only).
+function SaveButton({ schemeId }) {
+  const { user } = useAuth()
+  const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    if (!user) return
+    getSavedSchemes().then((list) => setSaved(list.some((s) => s.scheme_id === schemeId))).catch(() => {})
+  }, [user, schemeId])
+
+  if (!user) {
+    return <Link to="/login" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:underline"><Bookmark className="w-4 h-4" /> Log in to save</Link>
+  }
+
+  const toggle = async () => {
+    try {
+      if (saved) await unsaveScheme(schemeId)
+      else await saveScheme(schemeId)
+      setSaved(!saved)
+    } catch (e) {
+      alert(errorMessage(e))
+    }
+  }
+
+  return (
+    <button onClick={toggle} aria-pressed={saved}
+      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold border ${saved ? 'bg-navy-800 text-white border-navy-800' : 'border-slate-300 text-navy-800 hover:bg-slate-50'}`}>
+      {saved ? <><BookmarkCheck className="w-4 h-4" /> Saved</> : <><Bookmark className="w-4 h-4" /> Save</>}
+    </button>
+  )
+}
 
 // The order in which sections are shown (names come from the official pages).
 const SECTION_ORDER = [
@@ -38,6 +71,7 @@ export default function SchemeDetail() {
   const [check, setCheck] = useState(null)       // this user's eligibility for this scheme
   const [error, setError] = useState('')
   const [messages, setMessages] = useState([])
+  const [conversationId, setConversationId] = useState(null)
   const [loading, setLoading] = useState(false)
 
   // 1. Load the scheme, and check the saved profile against it.
@@ -45,6 +79,7 @@ export default function SchemeDetail() {
     setScheme(null)
     setError('')
     setMessages([])
+    setConversationId(null)
 
     getScheme(id).then(setScheme).catch((e) => setError(errorMessage(e)))
 
@@ -64,11 +99,13 @@ export default function SchemeDetail() {
     setLoading(true)
 
     try {
-      const data = await sendChat({ message, profile: loadProfile(), history, schemeId: id })
+      const data = await sendChat({ message, profile: loadProfile(), history, schemeId: id, conversationId })
       saveProfile(data.profile)
+      setConversationId(data.conversation_id)
       setMessages([...withUser, {
         role: 'assistant', content: data.answer, sources: data.sources,
         disclaimer: data.disclaimer, llm_available: data.llm_available,
+        message_id: data.message_id,
       }])
     } catch (e) {
       setMessages([...withUser, { role: 'assistant', content: errorMessage(e), error: true }])
@@ -109,7 +146,10 @@ export default function SchemeDetail() {
           {check && <StatusBadge status={check.status} />}
           {scheme.rules_verified === false && <UnverifiedNote />}
         </div>
-        <h1 className="mt-2 text-2xl sm:text-3xl font-bold text-navy-900">{scheme.name}</h1>
+        <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
+          <h1 className="text-2xl sm:text-3xl font-bold text-navy-900">{scheme.name}</h1>
+          <SaveButton schemeId={scheme.scheme_id} />
+        </div>
         <p className="mt-1 text-slate-600 flex items-center gap-1.5"><Building2 className="w-4 h-4" /> {scheme.ministry}</p>
         <div className="mt-3 flex flex-wrap items-center gap-4 text-sm">
           {scheme.url.startsWith('http') && (

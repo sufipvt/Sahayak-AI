@@ -39,6 +39,20 @@ export function Tag({ children }) {
   return <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-navy-50 text-navy-700">{children}</span>
 }
 
+// Shown on pages that need an account.
+export function LoginRequired({ what }) {
+  return (
+    <Card className="p-8 text-center">
+      <p className="text-lg font-semibold text-navy-900">Please log in to {what}.</p>
+      <p className="mt-1 text-slate-600">You can still find schemes and ask questions as a guest.</p>
+      <div className="mt-5 flex flex-wrap justify-center gap-3">
+        <Btn to="/login" variant="accent">Login</Btn>
+        <Btn to="/register" variant="outline">Create an account</Btn>
+      </div>
+    </Card>
+  )
+}
+
 // Shown when a team member has not yet checked the scheme's rules.
 export function UnverifiedNote() {
   return (

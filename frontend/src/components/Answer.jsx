@@ -1,8 +1,38 @@
 import { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
-import { ExternalLink, Info, AlertTriangle, Volume2, Square } from 'lucide-react'
+import { ExternalLink, Info, AlertTriangle, Volume2, Square, ThumbsUp, ThumbsDown } from 'lucide-react'
 import { Citation } from './ui.jsx'
 import { canSpeak, speak, stopSpeaking } from '../voice.js'
+import { rateAnswer } from '../api.js'
+
+// Helpful / not helpful buttons. Only for saved answers (logged-in users),
+// because the rating is stored with the answer in the database.
+function RateButtons({ messageId, initial }) {
+  const [rating, setRating] = useState(initial ?? null)
+
+  // When a saved chat is loaded from the server, show its stored rating.
+  useEffect(() => setRating(initial ?? null), [initial])
+
+  const rate = async (value) => {
+    try {
+      await rateAnswer(messageId, value)
+      setRating(value)
+    } catch {
+      // ignore: rating is optional
+    }
+  }
+
+  const style = (value) =>
+    `p-1 rounded-md ${rating === value ? 'bg-navy-100 text-navy-800' : 'text-slate-400 hover:text-navy-700'}`
+
+  return (
+    <span className="inline-flex items-center gap-1">
+      <span className="text-xs text-slate-500">Helpful?</span>
+      <button onClick={() => rate(1)} className={style(1)} aria-label="Helpful" aria-pressed={rating === 1}><ThumbsUp className="w-4 h-4" /></button>
+      <button onClick={() => rate(-1)} className={style(-1)} aria-label="Not helpful" aria-pressed={rating === -1}><ThumbsDown className="w-4 h-4" /></button>
+    </span>
+  )
+}
 
 // Reads the answer aloud with the browser's voice (hidden if not supported).
 function SpeakButton({ text }) {
@@ -99,7 +129,10 @@ export default function Answer({ message }) {
             <Info className="w-3.5 h-3.5 shrink-0 mt-0.5" /> {disclaimer}
           </p>
         )}
-        <SpeakButton text={content} />
+        <span className="inline-flex items-center gap-3">
+          {message.message_id && <RateButtons messageId={message.message_id} initial={message.rating} />}
+          <SpeakButton text={content} />
+        </span>
       </div>
     </div>
   )
