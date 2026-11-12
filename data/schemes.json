@@ -1,0 +1,446 @@
+{
+  "how_to_read": {
+    "states": "[\"All\"] means every state. Otherwise a list such as [\"Haryana\"].",
+    "min_age / max_age": "Age limits in years. null means no limit.",
+    "max_annual_income": "Highest allowed annual family income in rupees. null means no limit.",
+    "gender": "\"any\", \"female\" or \"male\".",
+    "social_categories": "[\"any\"] or a list such as [\"SC\", \"ST\"].",
+    "occupations": "[\"any\"] or a list such as [\"farmer\"].",
+    "needs_disability": "true only for schemes meant for persons with disability. Missing means false.",
+    "rule_notes": "Conditions that cannot be checked automatically. These make the status 'Needs confirmation'.",
+    "source": "myscheme = page loaded with Playwright, startup_india = Startup India page, pdf = local PDF in data/.",
+    "verified": "false until a team member has checked every rule value against the official page.",
+    "aliases": "Other names people use for the scheme. Used to spot the scheme when a user names it."
+  },
+  "schemes": [
+    {
+      "scheme_id": "pm-kisan",
+      "name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+      "aliases": [
+        "Kisan Samman Nidhi"
+      ],
+      "ministry": "Ministry of Agriculture and Farmers Welfare",
+      "category": "agriculture",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/pm-kisan",
+      "states": [
+        "All"
+      ],
+      "min_age": null,
+      "max_age": null,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "farmer"
+      ],
+      "rule_notes": "Cultivable land must be in the family's name. Income tax payers, government employees and registered professionals are excluded.",
+      "verified": false
+    },
+    {
+      "scheme_id": "pmfby",
+      "name": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+      "aliases": [
+        "Fasal Bima",
+        "crop insurance"
+      ],
+      "ministry": "Ministry of Agriculture and Farmers Welfare",
+      "category": "agriculture",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/pmfby",
+      "states": [
+        "All"
+      ],
+      "min_age": null,
+      "max_age": null,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "farmer"
+      ],
+      "rule_notes": "For farmers (including sharecroppers and tenant farmers) growing notified crops in notified areas.",
+      "verified": false
+    },
+    {
+      "scheme_id": "kcc",
+      "name": "Kisan Credit Card (KCC)",
+      "aliases": [
+        "Kisan Credit Card"
+      ],
+      "ministry": "Ministry of Agriculture and Farmers Welfare",
+      "category": "agriculture",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/kcc",
+      "states": [
+        "All"
+      ],
+      "min_age": 18,
+      "max_age": 75,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "farmer"
+      ],
+      "rule_notes": "Borrowers above 60 years need a co-borrower.",
+      "verified": false
+    },
+    {
+      "scheme_id": "apy",
+      "name": "Atal Pension Yojana (APY)",
+      "aliases": [
+        "Atal Pension"
+      ],
+      "ministry": "Ministry of Finance",
+      "category": "pension",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/apy",
+      "states": [
+        "All"
+      ],
+      "min_age": 18,
+      "max_age": 40,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "any"
+      ],
+      "rule_notes": "Must have a savings bank account and must not be an income tax payer.",
+      "verified": false
+    },
+    {
+      "scheme_id": "pm-sym",
+      "name": "Pradhan Mantri Shram Yogi Maan-dhan (PM-SYM)",
+      "aliases": [
+        "Maandhan",
+        "Maan-dhan",
+        "Shram Yogi"
+      ],
+      "ministry": "Ministry of Labour and Employment",
+      "category": "pension",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/pm-sym",
+      "states": [
+        "All"
+      ],
+      "min_age": 18,
+      "max_age": 40,
+      "max_annual_income": 180000,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "unorganised worker",
+        "street vendor",
+        "self-employed"
+      ],
+      "rule_notes": "Monthly income up to Rs 15,000. Must not be a member of EPF, ESIC or NPS, and must not be an income tax payer.",
+      "verified": false
+    },
+    {
+      "scheme_id": "pmjjby",
+      "name": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
+      "aliases": [
+        "Jeevan Jyoti"
+      ],
+      "ministry": "Ministry of Finance",
+      "category": "insurance",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/pmjjby",
+      "states": [
+        "All"
+      ],
+      "min_age": 18,
+      "max_age": 50,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "any"
+      ],
+      "rule_notes": "Must have a bank or post office savings account.",
+      "verified": false
+    },
+    {
+      "scheme_id": "igndps",
+      "name": "Indira Gandhi National Disability Pension Scheme (IGNDPS)",
+      "aliases": [
+        "disability pension"
+      ],
+      "ministry": "Ministry of Rural Development",
+      "category": "disability",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/igndps",
+      "states": [
+        "All"
+      ],
+      "min_age": 18,
+      "max_age": 79,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "any"
+      ],
+      "needs_disability": true,
+      "rule_notes": "Must have severe or multiple disability (80% or more) and belong to a Below Poverty Line (BPL) household.",
+      "verified": false
+    },
+    {
+      "scheme_id": "nmmss",
+      "name": "National Means-cum-Merit Scholarship Scheme (NMMSS)",
+      "aliases": [
+        "NMMS",
+        "Means-cum-Merit"
+      ],
+      "ministry": "Ministry of Education",
+      "category": "education",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/nmmss",
+      "states": [
+        "All"
+      ],
+      "min_age": null,
+      "max_age": null,
+      "max_annual_income": 350000,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "student"
+      ],
+      "rule_notes": "For students who passed Class 8 with the required marks and study in a government, government-aided or local body school.",
+      "verified": false
+    },
+    {
+      "scheme_id": "pmvs",
+      "name": "Pradhan Mantri Vidyalaxmi (PM-Vidyalaxmi) Scheme",
+      "aliases": [
+        "Vidyalaxmi"
+      ],
+      "ministry": "Ministry of Education",
+      "category": "education",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/pmvs",
+      "states": [
+        "All"
+      ],
+      "min_age": null,
+      "max_age": null,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "student"
+      ],
+      "rule_notes": "Education loan for students admitted to listed quality higher education institutions. Interest subvention depends on family income.",
+      "verified": false
+    },
+    {
+      "scheme_id": "pmmy",
+      "name": "Pradhan Mantri Mudra Yojana (PMMY)",
+      "aliases": [
+        "Mudra"
+      ],
+      "ministry": "Ministry of Finance",
+      "category": "business",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/pmmy",
+      "states": [
+        "All"
+      ],
+      "min_age": 18,
+      "max_age": null,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "entrepreneur",
+        "self-employed",
+        "street vendor"
+      ],
+      "rule_notes": "Loan is for a non-farm, income-generating micro or small business.",
+      "verified": false
+    },
+    {
+      "scheme_id": "sui",
+      "name": "Stand-Up India",
+      "aliases": [
+        "Stand Up India",
+        "Standup India"
+      ],
+      "ministry": "Ministry of Finance",
+      "category": "business",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/sui",
+      "states": [
+        "All"
+      ],
+      "min_age": 18,
+      "max_age": null,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "entrepreneur"
+      ],
+      "rule_notes": "Applicant must be an SC/ST person and/or a woman, setting up a new (greenfield) enterprise.",
+      "verified": false
+    },
+    {
+      "scheme_id": "pm-svanidhi",
+      "name": "PM Street Vendor's AtmaNirbhar Nidhi (PM SVANidhi)",
+      "aliases": [
+        "SVANidhi",
+        "street vendor loan"
+      ],
+      "ministry": "Ministry of Housing and Urban Affairs",
+      "category": "business",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/pm-svanidhi",
+      "states": [
+        "All"
+      ],
+      "min_age": null,
+      "max_age": null,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "street vendor"
+      ],
+      "rule_notes": "Must hold a vending certificate or ID card, or a letter of recommendation from the urban local body.",
+      "verified": false
+    },
+    {
+      "scheme_id": "pmuy",
+      "name": "Pradhan Mantri Ujjwala Yojana (PMUY)",
+      "aliases": [
+        "Ujjwala"
+      ],
+      "ministry": "Ministry of Petroleum and Natural Gas",
+      "category": "women",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/pmuy",
+      "states": [
+        "All"
+      ],
+      "min_age": 18,
+      "max_age": null,
+      "max_annual_income": null,
+      "gender": "female",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "any"
+      ],
+      "rule_notes": "Adult woman from a poor household with no existing LPG connection in the household.",
+      "verified": false
+    },
+    {
+      "scheme_id": "pmay-g",
+      "name": "Pradhan Mantri Awaas Yojana - Gramin (PMAY-G)",
+      "aliases": [
+        "PMAY",
+        "Awaas Yojana",
+        "Awas Yojana"
+      ],
+      "ministry": "Ministry of Rural Development",
+      "category": "housing",
+      "source": "myscheme",
+      "url": "https://www.myscheme.gov.in/schemes/pmay-g",
+      "states": [
+        "All"
+      ],
+      "min_age": null,
+      "max_age": null,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "any"
+      ],
+      "rule_notes": "For rural households that are houseless or live in a kutcha or dilapidated house, selected through the government survey list.",
+      "verified": false
+    },
+    {
+      "scheme_id": "cgss",
+      "name": "Credit Guarantee Scheme for Startups (CGSS)",
+      "aliases": [
+        "Credit Guarantee Scheme for Startups"
+      ],
+      "ministry": "Department for Promotion of Industry and Internal Trade (DPIIT)",
+      "category": "startups",
+      "source": "startup_india",
+      "url": "https://www.startupindia.gov.in/content/sih/en/credit-guarantee-scheme-for-startups.html",
+      "states": [
+        "All"
+      ],
+      "min_age": null,
+      "max_age": null,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "entrepreneur"
+      ],
+      "rule_notes": "Startup must be recognised by DPIIT. Loans are given through member banks and financial institutions.",
+      "verified": false
+    },
+    {
+      "scheme_id": "startup-playbook",
+      "name": "Playbook of Government Schemes and Initiatives for Startups (June 2026)",
+      "aliases": [
+        "startup playbook"
+      ],
+      "ministry": "Startup India",
+      "category": "startups",
+      "source": "pdf",
+      "url": "Startup-Schemes-Playbook-June-2026.pdf",
+      "states": [
+        "All"
+      ],
+      "min_age": null,
+      "max_age": null,
+      "max_annual_income": null,
+      "gender": "any",
+      "social_categories": [
+        "any"
+      ],
+      "occupations": [
+        "entrepreneur"
+      ],
+      "rule_notes": "This is a guide covering many startup schemes, not a single scheme. Check the rules of the specific scheme mentioned.",
+      "verified": false
+    }
+  ]
+}
