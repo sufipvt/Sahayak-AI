@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { CheckCircle2, CircleHelp, CircleDot, Clock, Building2 } from 'lucide-react'
+import { CheckCircle2, CircleHelp, CircleDot, CircleX, Building2, ShieldAlert } from 'lucide-react'
 
 export function Page({ title, subtitle, children, wide = true }) {
   return (
@@ -23,6 +23,7 @@ const statusStyles = {
   Eligible: { cls: 'bg-emerald-50 text-emerald-700 border-emerald-200', Icon: CheckCircle2 },
   'Likely eligible': { cls: 'bg-sky-50 text-sky-700 border-sky-200', Icon: CircleDot },
   'Needs confirmation': { cls: 'bg-amber-50 text-amber-700 border-amber-200', Icon: CircleHelp },
+  'Not eligible': { cls: 'bg-rose-50 text-rose-700 border-rose-200', Icon: CircleX },
 }
 
 export function StatusBadge({ status }) {
@@ -38,10 +39,19 @@ export function Tag({ children }) {
   return <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-navy-50 text-navy-700">{children}</span>
 }
 
-export function Citation({ n }) {
+// Shown when a team member has not yet checked the scheme's rules.
+export function UnverifiedNote() {
+  return (
+    <span className="inline-flex items-center gap-1 text-xs text-slate-500" title="The eligibility rules for this scheme have not been checked against the official page yet.">
+      <ShieldAlert className="w-3.5 h-3.5" /> Rules not yet verified
+    </span>
+  )
+}
+
+export function Citation({ n, title }) {
   return (
     <span
-      title={`Source [${n}]`}
+      title={title || `Source [${n}]`}
       className="inline-grid place-items-center min-w-6 h-6 px-1 text-xs font-bold rounded-md bg-saffron-100 text-saffron-700 border border-saffron-200"
     >
       [{n}]
@@ -61,31 +71,38 @@ export function Btn({ to, onClick, variant = 'primary', className = '', children
   return <button type={type} onClick={onClick} className={cls}>{children}</button>
 }
 
-export function SchemeCard({ scheme }) {
+// One result of the eligibility check (from /api/chat or /api/schemes/match).
+export function SchemeCard({ match }) {
   return (
-    <Card className="p-5 hover:shadow-md hover:border-navy-200 transition">
+    <Card className="p-4 hover:shadow-md hover:border-navy-200 transition">
       <div className="flex flex-wrap items-center gap-2 mb-2">
-        <Tag>{scheme.category}</Tag>
-        <StatusBadge status={scheme.status} />
+        <Tag>{match.category}</Tag>
+        <StatusBadge status={match.status} />
       </div>
-      <Link to={`/scheme/${scheme.id}`} className="text-lg font-bold text-navy-900 hover:text-navy-600 leading-snug">
-        {scheme.name}
+      <Link to={`/scheme/${match.scheme_id}`} className="font-bold text-navy-900 hover:text-navy-600 leading-snug">
+        {match.name}
       </Link>
-      <p className="mt-1 text-sm text-slate-500 flex items-center gap-1.5">
-        <Building2 className="w-4 h-4 shrink-0" /> {scheme.ministry}
+      <p className="mt-1 text-xs text-slate-500 flex items-center gap-1.5">
+        <Building2 className="w-3.5 h-3.5 shrink-0" /> {match.ministry}
       </p>
-      <p className="mt-3 text-[15px] text-slate-700">
-        <span className="font-semibold text-navy-800">Why you qualify: </span>
-        {scheme.why}
-      </p>
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-1.5">
-          {scheme.citations.map((n) => <Citation key={n} n={n} />)}
-          <span className="ml-2 text-xs text-slate-500 flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5" /> Last updated {scheme.updated}
-          </span>
-        </div>
-        <Link to={`/scheme/${scheme.id}`} className="text-sm font-semibold text-saffron-700 hover:text-saffron-600">
+
+      {match.why.length > 0 && (
+        <ul className="mt-2 text-sm text-slate-700 space-y-0.5">
+          {match.why.map((reason) => (
+            <li key={reason} className="flex gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" /> {reason}</li>
+          ))}
+        </ul>
+      )}
+      {match.missing.length > 0 && (
+        <p className="mt-2 text-sm text-amber-800">Still needed: {match.missing.join('; ')}</p>
+      )}
+      {match.failed?.length > 0 && (
+        <p className="mt-2 text-sm text-rose-700">{match.failed.join(' ')}</p>
+      )}
+
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+        {match.rules_verified === false ? <UnverifiedNote /> : <span />}
+        <Link to={`/scheme/${match.scheme_id}`} className="text-sm font-semibold text-saffron-700 hover:text-saffron-600">
           View details →
         </Link>
       </div>

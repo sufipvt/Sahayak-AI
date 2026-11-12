@@ -1,11 +1,10 @@
 # Python virtual environment
 .venv/
+venv/
 
 # Environment variables and API keys
 .env
 .env.*
-
-# Allow an example environment template
 !.env.example
 
 # Python cache files
@@ -23,11 +22,13 @@ chroma_db/
 .coverage
 htmlcov/
 
+# Frontend dependencies
+node_modules/
+frontend/node_modules/
+
+# Build output
+frontend/dist/
+
 # Operating system files
 .DS_Store
 Thumbs.db
-
-node_modules/
-frontend/node_modules/
-venv/
-.env

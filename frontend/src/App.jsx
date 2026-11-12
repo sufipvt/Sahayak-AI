@@ -5,7 +5,6 @@ import Auth from './pages/Auth.jsx'
 import Profile from './pages/Profile.jsx'
 import Results from './pages/Results.jsx'
 import SchemeDetail from './pages/SchemeDetail.jsx'
-import Voice from './pages/Voice.jsx'
 import Upload from './pages/Upload.jsx'
 import Centres from './pages/Centres.jsx'
 import History from './pages/History.jsx'
@@ -22,7 +21,6 @@ export default function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/results" element={<Results />} />
         <Route path="/scheme/:id" element={<SchemeDetail />} />
-        <Route path="/voice" element={<Voice />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/centres" element={<Centres />} />
         <Route path="/history" element={<History />} />

@@ -1,22 +1,23 @@
 import { Fragment } from 'react'
-import { ArrowRight, ArrowDown, RefreshCw, Mic, Database, MapPin, FileStack, ScanText, Scissors, Binary, Layers, User, MonitorSmartphone, Server, UserCog, Search, Bot, MessageSquareQuote } from 'lucide-react'
+import { ArrowRight, ArrowDown, RefreshCw, Database, MapPin, FileStack, ScanText, Scissors, Binary, Layers, User, MonitorSmartphone, Server, UserCog, Search, Bot, MessageSquareQuote, ListChecks } from 'lucide-react'
 import { Page, Card } from '../components/ui.jsx'
 
 const offline = [
-  { Icon: FileStack, title: 'Scheme sources', sub: 'Official portals, PDFs' },
-  { Icon: ScanText, title: 'Parsing & OCR', sub: 'Text from PDFs / scans' },
-  { Icon: Scissors, title: 'Split by section + metadata', sub: 'Eligibility, benefits, state…' },
-  { Icon: Binary, title: 'Embeddings (BGE)', sub: 'Dense vectors' },
+  { Icon: FileStack, title: 'Scheme sources', sub: 'myScheme, Startup India, PDF' },
+  { Icon: ScanText, title: 'Fetch & parse', sub: 'Playwright, BeautifulSoup, PyMuPDF' },
+  { Icon: Scissors, title: 'Split by section + metadata', sub: 'scheme_id, section, URL, date' },
+  { Icon: Binary, title: 'Embeddings (BGE-small)', sub: 'Dense vectors' },
   { Icon: Layers, title: 'ChromaDB + BM25', sub: 'Vector + keyword index', highlight: true },
 ]
 
 const online = [
-  { Icon: User, title: 'User', sub: 'Text / voice' },
+  { Icon: User, title: 'User', sub: 'Plain-language text' },
   { Icon: MonitorSmartphone, title: 'React UI', sub: 'Web, mobile-friendly' },
   { Icon: Server, title: 'FastAPI', sub: 'Backend API' },
   { Icon: UserCog, title: 'Profile extraction (LLM)', sub: 'Age, state, income…' },
-  { Icon: Search, title: 'Eligibility-aware hybrid search + re-ranking', sub: 'Filter → BM25 + vector → rerank', highlight: true },
-  { Icon: Bot, title: 'Groq LLM', sub: 'Grounded generation' },
+  { Icon: ListChecks, title: 'Eligibility rules', sub: 'Python rule check' },
+  { Icon: Search, title: 'Hybrid search + re-ranking', sub: 'Filter → BM25 + vector → RRF → rerank', highlight: true },
+  { Icon: Bot, title: 'Groq LLM', sub: 'Answers only from context' },
   { Icon: MessageSquareQuote, title: 'Answer with citations', sub: 'Status + sources' },
 ]
 
@@ -52,10 +53,8 @@ function Flow({ items }) {
 
 export default function Architecture() {
   return (
-    <Page title="System architecture" subtitle="Planned Retrieval-Augmented Generation (RAG) pipeline for Sahayak.">
-      <p className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-        This diagram describes a proposed design. The backend, search pipeline, and supporting services shown here are not connected to the frontend.
-      </p>
+    <Page title="System architecture" subtitle="The Retrieval-Augmented Generation (RAG) pipeline behind Sahayak.">
+
       <div className="grid xl:grid-cols-[1fr_240px] gap-6">
         <div className="space-y-6">
           <Card className="p-5 sm:p-6 bg-slate-50/60">
@@ -89,7 +88,6 @@ export default function Architecture() {
         <div className="grid sm:grid-cols-3 xl:grid-cols-1 gap-4 content-start">
           <p className="sm:col-span-3 xl:col-span-1 text-sm font-semibold text-slate-500">Supporting services</p>
           {[
-            { Icon: Mic, title: 'Whisper voice', sub: 'Speech → text for voice queries' },
             { Icon: Database, title: 'SQLite', sub: 'Users, profiles, history, feedback' },
             { Icon: MapPin, title: 'Service centre finder (map)', sub: 'Nearest CSC by location / PIN' },
           ].map(({ Icon, title, sub }) => (

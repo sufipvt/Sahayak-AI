@@ -37,9 +37,6 @@ export default function Layout() {
             </span>
             <span className="text-xl font-extrabold tracking-tight">Sahayak</span>
           </Link>
-          <span className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full bg-saffron-500/20 text-saffron-200 border border-saffron-400/40">
-            <Info className="w-3 h-3" /> Frontend prototype · backend not connected
-          </span>
 
           <nav className="hidden lg:flex items-center gap-1 ml-auto">
             {links.map((l) => (
@@ -58,9 +55,6 @@ export default function Layout() {
         </div>
         {open && (
           <nav className="lg:hidden border-t border-white/10 px-4 py-3 flex flex-col gap-1">
-            <span className="sm:hidden self-start mb-2 text-xs font-semibold px-2 py-1 rounded-full bg-saffron-500/20 text-saffron-200">
-              Frontend prototype · backend not connected
-            </span>
             {links.map((l) => (
               <NavLink key={l.to} to={l.to} end={l.to === '/'} className={navClass}>
                 {l.label}
@@ -81,7 +75,7 @@ export default function Layout() {
         <div className="max-w-7xl mx-auto px-4 py-6 flex flex-col sm:flex-row gap-2 sm:items-center justify-between text-sm">
           <p className="flex items-center gap-2">
             <Info className="w-4 h-4 text-saffron-400 shrink-0" />
-            When available, Sahayak guidance does not replace official eligibility decisions.
+            Sahayak gives information only. The final decision rests with the concerned government department.
           </p>
           <p className="text-navy-200">© 2026 Sahayak · B.Tech Final Year Project</p>
         </div>

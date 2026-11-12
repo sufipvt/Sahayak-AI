@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Mic, Search, UserRound, ScanSearch, ListChecks, BadgeCheck, GraduationCap, Tractor, HeartHandshake, Store, Upload, MapPin, Languages, Info } from 'lucide-react'
+import { Search, UserRound, ScanSearch, ListChecks, BadgeCheck, GraduationCap, Tractor, HeartHandshake, Store, Upload, MapPin, ShieldCheck } from 'lucide-react'
 
 const exampleChips = [
-  { label: 'Student', text: 'I am a student looking for education support' },
-  { label: 'Farmer', text: 'I am a farmer looking for agriculture support' },
-  { label: 'Senior citizen', text: 'I am a senior citizen looking for support' },
-  { label: 'Woman entrepreneur', text: 'I want to start a small business' },
+  { label: 'Student', text: 'I am a 20-year-old engineering student from Haryana and my family income is under 3 lakh' },
+  { label: 'Farmer', text: 'I am a 45 year old farmer from Punjab. What help can I get?' },
+  { label: 'Senior citizen', text: 'I am 62 years old and live in Uttar Pradesh. Is there any pension for me?' },
+  { label: 'Woman entrepreneur', text: 'I am a 30 year old woman from Bihar and I want to start a small business' },
 ]
 
 const howItWorks = [
-  { title: 'Describe yourself', text: 'Use a plain-language prompt; voice input will be added later.' },
-  { title: 'Review your profile', text: 'Check the details you choose to share before searching.' },
-  { title: 'Explore relevant schemes', text: 'When connected, a matching service can compare details with scheme rules.' },
-  { title: 'Find reliable guidance', text: 'When connected, review verified benefits, official links and nearby help.' },
+  { title: 'Describe yourself', text: 'Write in plain words: age, state, what you do, family income.' },
+  { title: 'Check your profile', text: 'Sahayak shows what it understood. Correct anything that is wrong.' },
+  { title: 'See matching schemes', text: 'Your details are checked against each scheme\'s rules, with the reason.' },
+  { title: 'Get cited answers', text: 'Benefits, documents and steps, each linked to the official page.' },
 ]
 
 const chipIcons = { Student: GraduationCap, Farmer: Tractor, 'Senior citizen': HeartHandshake, 'Woman entrepreneur': Store }
@@ -23,12 +23,18 @@ export default function Home() {
   const [text, setText] = useState('')
   const navigate = useNavigate()
 
+  // Open the Results page; it sends this text to the backend.
+  const search = () => {
+    const question = text.trim()
+    navigate('/results', { state: question ? { question } : null })
+  }
+
   return (
     <>
       <section className="bg-gradient-to-b from-navy-900 to-navy-800 text-white">
         <div className="max-w-4xl mx-auto px-4 pt-12 pb-20 sm:pt-16 text-center">
           <p className="inline-flex items-center gap-2 text-sm font-semibold text-saffron-200 bg-white/10 px-3 py-1 rounded-full">
-            <Languages className="w-4 h-4" /> English · हिन्दी · Multilingual support planned
+            <ShieldCheck className="w-4 h-4" /> Answers from official government pages, with sources
           </p>
           <h1 className="mt-5 text-3xl sm:text-5xl font-extrabold leading-tight">
             Government scheme information, <span className="text-saffron-400">made easier</span>
@@ -38,30 +44,20 @@ export default function Home() {
           </p>
 
           <div className="mt-8 bg-white rounded-2xl p-3 shadow-xl text-left">
-            <p className="flex items-center gap-2 px-3 pt-2 text-sm text-amber-800" role="status">
-              <Info className="w-4 h-4 shrink-0" />
-              Scheme search is not connected yet. No eligibility checks or scheme matches are provided.
-            </p>
             <textarea
               rows={3}
               value={text}
               onChange={(e) => setText(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); search() } }}
               placeholder="Tell us about yourself… e.g. age, state, what you do, family income, category"
               className="w-full resize-none p-3 text-lg text-slate-800 placeholder:text-slate-400 outline-none"
             />
             <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
-              <button
-                onClick={() => navigate('/voice')}
-                className="w-12 h-12 rounded-full bg-saffron-100 text-saffron-700 grid place-items-center hover:bg-saffron-200"
-                aria-label="Speak"
-              >
-                <Mic className="w-6 h-6" />
-              </button>
               <Link to="/upload" className="hidden sm:inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-navy-700 px-2">
                 <Upload className="w-4 h-4" /> Upload a certificate
               </Link>
               <button
-                onClick={() => navigate('/results')}
+                onClick={search}
                 className="ml-auto inline-flex items-center gap-2 px-6 h-12 rounded-xl bg-saffron-500 text-navy-900 font-bold text-lg hover:bg-saffron-400"
               >
                 <Search className="w-5 h-5" /> Search
@@ -111,9 +107,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 mt-10 grid sm:grid-cols-3 gap-4">
+      <section className="max-w-7xl mx-auto px-4 mt-10 grid sm:grid-cols-2 gap-4">
         {[
-          { Icon: Mic, title: 'Speak your question', text: 'Voice capture will be available when speech services are connected.', to: '/voice' },
           { Icon: Upload, title: 'Upload a document', text: 'Certificate reading will be available when document processing is connected.', to: '/upload' },
           { Icon: MapPin, title: 'Find a help centre', text: 'Verified centre search will be available when location data is connected.', to: '/centres' },
         ].map(({ Icon, title, text, to }) => (
