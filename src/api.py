@@ -1,5 +1,6 @@
 
 import time
+from contextlib import asynccontextmanager
 from typing import List, Literal, Optional
 
 from fastapi import Depends, FastAPI, File, HTTPException, UploadFile
@@ -21,9 +22,18 @@ from centre_tool import route_centre_question, answer_centre_question
 import auth
 import user_routes
 import admin_routes
+import refresh_job
 
 
-app = FastAPI(title="Sahayak API")
+# The weekly refresh job starts with the server and stops with it.
+@asynccontextmanager
+async def lifespan(app):
+    refresh_job.start_scheduler()
+    yield
+    refresh_job.stop_scheduler()
+
+
+app = FastAPI(title="Sahayak API", lifespan=lifespan)
 
 # Login, the user's own data, and admin endpoints live in their own files.
 app.include_router(auth.router)

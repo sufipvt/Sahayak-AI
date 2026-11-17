@@ -6,7 +6,8 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from auth import require_admin
-from database import Conversation, Message, ServiceCentre, User, get_db
+from database import Conversation, Message, RefreshLog, ServiceCentre, User, get_db
+import refresh_job
 
 
 # Every endpoint here needs an admin account (Depends(require_admin)).
@@ -68,3 +69,25 @@ def delete_centre(centre_id: int, admin: User = Depends(require_admin), db: Sess
     db.delete(centre)
     db.commit()
     return {"deleted": True}
+
+
+# --------------------------------------------------
+# WEEKLY REFRESH OF THE OFFICIAL PAGES (refresh_job.py)
+# --------------------------------------------------
+
+@router.post("/refresh", status_code=202)
+def run_refresh_now(admin: User = Depends(require_admin)):
+    """Start a refresh in the background. Check /refresh/log for the result."""
+    if not refresh_job.start_refresh_now():
+        raise HTTPException(status_code=409, detail="A refresh is already running.")
+    return {"started": True}
+
+
+@router.get("/refresh/log")
+def refresh_log(admin: User = Depends(require_admin), db: Session = Depends(get_db)):
+    runs = db.query(RefreshLog).order_by(RefreshLog.id.desc()).limit(20)
+    return {
+        "running": refresh_job.is_running(),
+        "next_run": refresh_job.next_run_time(),
+        "runs": [refresh_job.log_info(log) for log in runs],
+    }

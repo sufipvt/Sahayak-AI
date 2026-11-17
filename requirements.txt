@@ -32,5 +32,8 @@ beautifulsoup4==4.15.0
 requests==2.34.2
 pymupdf==2.0
 
+# Weekly refresh of the official pages
+apscheduler==3.11.3
+
 # HTTPS behind antivirus that scans HTTPS (uses the Windows certificate store)
 truststore==0.10.5

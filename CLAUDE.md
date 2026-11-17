@@ -36,7 +36,9 @@ Repo: https://github.com/sufipvt/Sahayak-AI (branch `main`).
     `hybrid_retriever.py`, `reranker.py`, `rag_pipeline.py` (`retrieve_documents`,
     `generate_answer`, `ask_sahayak`), `llm.py`
   - App: `api.py` (all routes + chat), `database.py`, `auth.py`, `user_routes.py`,
-    `admin_routes.py`, `create_admin.py`, `document_reader.py`, `centre_finder.py`, `centre_tool.py`
+    `admin_routes.py`, `create_admin.py`, `document_reader.py`, `centre_finder.py`, `centre_tool.py`,
+    `refresh_job.py` (weekly refresh: APScheduler, Sunday 03:00 local time, hash compare,
+    re-index changed schemes only, `refresh_log` table)
   - Evaluation: `evaluate.py`
   - Early-prototype files, not used by the app: `injest_web_page.py`, `retriever.py`,
     `vector_store.py`, `web_vector_store.py`, `chunk_content.py`, `metadata_builder.py`,
@@ -57,6 +59,7 @@ cd src
 $env:PYTHONIOENCODING="utf-8"; $env:HF_HUB_OFFLINE="1"
 ..\.venv\Scripts\python.exe ingest_schemes.py            # rebuild index from saved files (offline)
 ..\.venv\Scripts\python.exe scheme_fetcher.py [ids...]   # re-fetch official pages (online)
+..\.venv\Scripts\python.exe refresh_job.py [ids...]      # refresh once: re-index only changed schemes (online)
 ..\.venv\Scripts\python.exe create_admin.py              # make an admin account
 ..\.venv\Scripts\python.exe -m uvicorn api:app --host 127.0.0.1 --port 8000   # API docs: /docs
 cd ..\frontend; npm run dev                               # http://localhost:5173
@@ -105,15 +108,16 @@ IGNDPS (disability unknown) and PMUY (gender unknown) give "Needs confirmation" 
 ## Status
 - Done: Steps 1–5 (knowledge base, profile/eligibility/RAG/API, frontend, database + login,
   PDF upload + centre finder + tool calling), requirements.txt / .env.example / README,
-  Step 6a evaluation.
+  Step 6a evaluation, Step 6b weekly refresh job (`refresh_job.py`; admin API
+  `POST /api/admin/refresh` starts it in the background, 409 if already running;
+  `GET /api/admin/refresh/log` gives running, next_run and the last 20 runs). Unchanged pages
+  are not re-saved; on a failed re-index the old file and chunks are restored; a block (403/429)
+  stops the run. Tested 17 Nov 2026: all 15 pages unchanged.
 - Next:
-  1. Step 6b: weekly refresh job (APScheduler, hash compare, re-index only changed schemes with
-     `ingest_schemes.index_scheme`, keep old data on failure, refresh log table, "Run refresh now",
-     `hybrid_retriever.reload_index()` after changes). Minimal.
-  2. Step 6c: admin page: stats, schemes list, service centres (add/delete CSCs; API already in
-     `admin_routes.py`), Run refresh now, refresh log. Minimal.
-  3. Eligibility fix (if time before 19 Nov): add real rules from official criteria (education level
+  1. Step 6c: admin page: stats, schemes list, service centres (add/delete CSCs; API already in
+     `admin_routes.py`), Run refresh now, refresh log (API from step 6b). Minimal.
+  2. Eligibility fix (if time before 19 Nov): add real rules from official criteria (education level
      for NMMSS/PM-Vidyalaxmi, income-tax payer for APY, SC/ST-or-woman for Stand-Up India, basic
      PMAY-G); UI shows "Needs confirmation" schemes in a separate "May also apply" section; re-run
      the eligibility evaluation and show before/after.
-  4. After 19 Nov: Step 7 Docker + full README (README file table still lacks step 5/6 files).
+  3. After 19 Nov: Step 7 Docker + full README (README file table still lacks step 5/6 files).

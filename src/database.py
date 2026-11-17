@@ -109,6 +109,21 @@ class ServiceCentre(Base):
     created_at = Column(DateTime, default=now)
 
 
+class RefreshLog(Base):
+    """One run of the weekly refresh job (refresh_job.py)."""
+    __tablename__ = "refresh_log"
+
+    id = Column(Integer, primary_key=True)
+    started_at = Column(DateTime, default=now)
+    finished_at = Column(DateTime, nullable=True)   # empty while the job is running
+    triggered_by = Column(String(20))                # "schedule" or "admin"
+    status = Column(String(20), default="running")   # running / ok / partial / blocked / failed
+    checked = Column(Integer, default=0)             # how many pages were fetched
+    changed = Column(JSON, default=list)             # scheme_ids that changed and were re-indexed
+    failed = Column(JSON, default=list)              # scheme_ids whose fetch or re-index failed
+    message = Column(Text, nullable=True)
+
+
 # Create the tables if they don't exist yet.
 Base.metadata.create_all(engine)
 
