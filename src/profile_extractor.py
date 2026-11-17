@@ -40,12 +40,14 @@ class UserProfile(BaseModel):
 # 2. EXTRACT A PROFILE FROM PLAIN TEXT
 # --------------------------------------------------
 
-structured_llm = llm.with_structured_output(UserProfile)
+# json_schema mode makes Groq return exactly the UserProfile format.
+structured_llm = llm.with_structured_output(UserProfile, method="json_schema")
 
 EXTRACTION_PROMPT = """
 Extract the user's details from the text below.
 Only fill a field if the user clearly states it. Never guess.
 If the user gives an upper limit for income, like "under 3 lakh", use that number (300000).
+Someone who runs, or wants to start, a business or startup is an "entrepreneur".
 If the text is just a question with no personal details, leave every field empty.
 
 TEXT:

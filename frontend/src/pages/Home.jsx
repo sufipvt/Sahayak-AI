@@ -109,8 +109,8 @@ export default function Home() {
 
       <section className="max-w-7xl mx-auto px-4 mt-10 grid sm:grid-cols-2 gap-4">
         {[
-          { Icon: Upload, title: 'Upload a document', text: 'Certificate reading will be available when document processing is connected.', to: '/upload' },
-          { Icon: MapPin, title: 'Find a help centre', text: 'Verified centre search will be available when location data is connected.', to: '/centres' },
+          { Icon: Upload, title: 'Upload a document', text: 'Get an income certificate or scheme notice (PDF) explained, and fill your profile from it.', to: '/upload' },
+          { Icon: MapPin, title: 'Find a help centre', text: 'See nearby banks, post offices and CSCs on a map, by location or PIN code.', to: '/centres' },
         ].map(({ Icon, title, text, to }) => (
           <Link key={title} to={to} className="bg-white rounded-2xl border border-slate-200 p-5 flex gap-4 hover:shadow-md hover:border-navy-200 transition">
             <span className="w-11 h-11 rounded-xl bg-saffron-50 text-saffron-600 grid place-items-center shrink-0">

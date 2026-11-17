@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { ListChecks, MessageCircleQuestion, Plus } from 'lucide-react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { ListChecks, MessageCircleQuestion, Plus, MapPin } from 'lucide-react'
 import { Page, Card, SchemeCard } from '../components/ui.jsx'
 import ChatPanel from '../components/ChatPanel.jsx'
 import ProfileCard from '../components/ProfileCard.jsx'
@@ -47,6 +47,8 @@ export default function Results() {
           disclaimer: data.disclaimer,
           llm_available: data.llm_available,
           message_id: data.message_id,     // only for logged-in users (rating)
+          centres: data.centres,           // only for "where can I apply?" answers
+          centre_location: data.centre_location,
         }],
         matches: data.matches.length > 0 ? data.matches : chat.matches,
         followUps: data.follow_up_questions,
@@ -95,11 +97,12 @@ export default function Results() {
     }
   }
 
-  // If we already know the profile (e.g. restored after login) but have no
-  // matches yet, run the eligibility check once (no AI, instant).
+  // If we already know the profile (e.g. restored after login, or details
+  // added from an uploaded document), re-check eligibility when the page
+  // opens (no AI, instant), so the matching schemes are up to date.
   useEffect(() => {
     const known = Object.values(profile).some((v) => v !== null && v !== undefined)
-    if (known && chat.matches.length === 0 && !location.state) {
+    if (known && !location.state) {
       matchSchemes(profile)
         .then((data) => setChat((c) => ({ ...c, matches: data.matches, followUps: data.follow_up_questions })))
         .catch(() => {})
@@ -138,11 +141,17 @@ export default function Results() {
             <span className="text-slate-500">
               {user ? 'Your chats are saved in History.' : 'Guest mode: this chat is not saved. Log in to keep it.'}
             </span>
-            {chat.messages.length > 0 && (
-              <button onClick={newChat} className="inline-flex items-center gap-1 font-semibold text-navy-700 hover:underline">
-                <Plus className="w-4 h-4" /> New chat
-              </button>
-            )}
+            <span className="inline-flex items-center gap-4">
+              {/* Always works, even if the AI does not pick the centre tool. */}
+              <Link to="/centres" className="inline-flex items-center gap-1 font-semibold text-navy-700 hover:underline">
+                <MapPin className="w-4 h-4" /> Find nearby centres
+              </Link>
+              {chat.messages.length > 0 && (
+                <button onClick={newChat} className="inline-flex items-center gap-1 font-semibold text-navy-700 hover:underline">
+                  <Plus className="w-4 h-4" /> New chat
+                </button>
+              )}
+            </span>
           </div>
           <ChatPanel
             messages={chat.messages}

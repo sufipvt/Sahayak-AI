@@ -2,7 +2,7 @@
 import time
 from typing import List, Literal, Optional
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, File, HTTPException, UploadFile
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
@@ -15,6 +15,9 @@ from profile_extractor import (
 from eligibility import find_matching_schemes
 from scheme_fetcher import load_schemes, load_scheme_text
 from database import get_db
+from document_reader import analyse_document, DocumentError
+from centre_finder import find_centres, find_location, CSC_LOCATOR_URL
+from centre_tool import route_centre_question, answer_centre_question
 import auth
 import user_routes
 import admin_routes
@@ -164,15 +167,22 @@ def chat(
 
     extract_seconds = time.perf_counter() - start
 
-    # Step 2: Answer. If the user is on a scheme page, search only that scheme.
-    scheme_ids = None
+    # Step 2: "Where can I apply?" questions go to the centre finder
+    # (LangChain tool calling). Everything else gets the normal RAG answer.
+    location_text = None if request.scheme_id else route_centre_question(request.message)
 
-    if request.scheme_id:
-        find_scheme(request.scheme_id)
-        scheme_ids = [request.scheme_id]
+    if location_text is not None:
+        result = {**answer_centre_question(location_text), "disclaimer": DISCLAIMER}
+    else:
+        # If the user is on a scheme page, search only that scheme.
+        scheme_ids = None
 
-    history = [message.model_dump() for message in request.history[-4:]]
-    result = ask_sahayak(request.message, profile, scheme_ids, history)
+        if request.scheme_id:
+            find_scheme(request.scheme_id)
+            scheme_ids = [request.scheme_id]
+
+        history = [message.model_dump() for message in request.history[-4:]]
+        result = ask_sahayak(request.message, profile, scheme_ids, history)
 
     # Step 3: Logged-in users: save the question and answer.
     conversation_id, message_id = None, None
@@ -194,6 +204,52 @@ def chat(
         "conversation_id": conversation_id,
         "message_id": message_id,     # used to rate this answer
         "seconds": round(total_seconds, 1),
+    }
+
+
+@app.post("/api/documents/analyse")
+async def documents_analyse(file: UploadFile = File(...)):
+    """
+    Upload a PDF (income certificate, marksheet, scheme notice ...).
+    Returns a simple explanation and any profile details found.
+    The file is read in memory and NOT stored.
+    """
+
+    if not (file.filename or "").lower().endswith(".pdf"):
+        raise HTTPException(status_code=400, detail="Please upload a PDF file.")
+
+    file_bytes = await file.read()
+
+    try:
+        return analyse_document(file_bytes)
+    except DocumentError as error:
+        raise HTTPException(status_code=400, detail=str(error))
+    except Exception as error:
+        print(f"Document analysis failed: {error}")
+        raise HTTPException(status_code=503, detail="The AI service could not read this document. Please try again.")
+
+
+@app.get("/api/centres")
+def centres(place: Optional[str] = None, lat: Optional[float] = None, lon: Optional[float] = None):
+    """
+    Nearest banks, post offices and service centres.
+    Give either ?place=Rohtak (or a PIN code) or ?lat=..&lon=.. from the browser.
+    The location is used for this search only and is not stored.
+    """
+
+    if place:
+        location = find_location(place)
+        if location is None:
+            raise HTTPException(status_code=404, detail=f"Could not find '{place}' on the map.")
+    elif lat is not None and lon is not None:
+        location = {"lat": lat, "lon": lon, "label": "Your location"}
+    else:
+        raise HTTPException(status_code=400, detail="Give a city / PIN code, or your location.")
+
+    return {
+        "location": location,
+        "centres": find_centres(location["lat"], location["lon"]),
+        "csc_locator_url": CSC_LOCATOR_URL,
     }
 
 

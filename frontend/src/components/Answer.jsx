@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
-import { ExternalLink, Info, AlertTriangle, Volume2, Square, ThumbsUp, ThumbsDown } from 'lucide-react'
+import { ExternalLink, Info, AlertTriangle, Volume2, Square, ThumbsUp, ThumbsDown, MapPin } from 'lucide-react'
 import { Citation } from './ui.jsx'
+import CentreMap from './CentreMap.jsx'
 import { canSpeak, speak, stopSpeaking } from '../voice.js'
 import { rateAnswer } from '../api.js'
 
@@ -101,6 +103,17 @@ export default function Answer({ message }) {
           {text}
         </ReactMarkdown>
       </div>
+
+      {/* A "where can I apply?" answer comes with centres: show them on a small map. */}
+      {message.centres?.length > 0 && message.centre_location && (
+        <div className="mt-3">
+          <CentreMap location={message.centre_location} centres={message.centres.slice(0, 8)} height={240} />
+          <Link to={`/centres?place=${encodeURIComponent(message.centre_location.label)}`}
+            className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-saffron-700 hover:underline">
+            <MapPin className="w-4 h-4" /> Open full map
+          </Link>
+        </div>
+      )}
 
       {sources.length > 0 && (
         <div className="mt-3 border-t border-slate-100 pt-2">

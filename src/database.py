@@ -2,7 +2,7 @@
 from datetime import datetime, timezone
 
 from sqlalchemy import (
-    JSON, Boolean, Column, DateTime, ForeignKey, Integer, String, Text,
+    JSON, Boolean, Column, DateTime, Float, ForeignKey, Integer, String, Text,
     UniqueConstraint, create_engine,
 )
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
@@ -90,6 +90,22 @@ class SavedScheme(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     scheme_id = Column(String(50), nullable=False)
+    created_at = Column(DateTime, default=now)
+
+
+class ServiceCentre(Base):
+    """A Common Services Centre or office added by an admin
+    (OpenStreetMap has almost no CSCs, so the team adds them by hand
+    from the official CSC locator)."""
+    __tablename__ = "service_centres"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(200), nullable=False)
+    centre_type = Column(String(100), default="Common Services Centre")
+    address = Column(String(300))
+    phone = Column(String(50))
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
     created_at = Column(DateTime, default=now)
 
 

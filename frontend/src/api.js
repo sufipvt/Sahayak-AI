@@ -76,7 +76,23 @@ export const getSavedSchemes = async () => (await api.get('/me/saved')).data
 export const saveScheme = async (schemeId) => (await api.post(`/me/saved/${schemeId}`)).data
 export const unsaveScheme = async (schemeId) => (await api.delete(`/me/saved/${schemeId}`)).data
 
-// 6. Admin only.
+// 6. Upload a PDF: returns an explanation and any profile details found.
+//    The file is read on the server in memory and not stored.
+export async function analyseDocument(file) {
+  const form = new FormData()
+  form.append('file', file)
+  const { data } = await api.post('/documents/analyse', form, { timeout: 90000 })
+  return data
+}
+
+// 7. Nearest centres: by city / PIN code, or by the browser's location.
+export async function getCentres({ place, lat, lon }) {
+  const params = place ? { place } : { lat, lon }
+  const { data } = await api.get('/centres', { params })
+  return data
+}
+
+// 8. Admin only.
 export const getAdminStats = async () => (await api.get('/admin/stats')).data
 
 // Turn any error into a short message for the user.
