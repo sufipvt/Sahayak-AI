@@ -60,6 +60,7 @@ $env:PYTHONIOENCODING="utf-8"; $env:HF_HUB_OFFLINE="1"
 ..\.venv\Scripts\python.exe ingest_schemes.py            # rebuild index from saved files (offline)
 ..\.venv\Scripts\python.exe scheme_fetcher.py [ids...]   # re-fetch official pages (online)
 ..\.venv\Scripts\python.exe refresh_job.py [ids...]      # refresh once: re-index only changed schemes (online)
+..\.venv\Scripts\python.exe refresh_job.py --simulate-change apy   # viva demo: fake old hash -> apy re-indexed, real hash restored
 ..\.venv\Scripts\python.exe create_admin.py              # make an admin account
 ..\.venv\Scripts\python.exe -m uvicorn api:app --host 127.0.0.1 --port 8000   # API docs: /docs
 cd ..\frontend; npm run dev                               # http://localhost:5173
@@ -113,6 +114,10 @@ IGNDPS (disability unknown) and PMUY (gender unknown) give "Needs confirmation" 
   `GET /api/admin/refresh/log` gives running, next_run and the last 20 runs). Unchanged pages
   are not re-saved; on a failed re-index the old file and chunks are restored; a block (403/429)
   stops the run. Tested 17 Nov 2026: all 15 pages unchanged.
+  Additions: a changed scheme gets `"verified": false` in schemes.json and the log message says
+  "Rules may need re-check: <ids>". `--simulate-change <id>` (CLI only, checks only that scheme,
+  logged as triggered_by "simulation") plants a fake old hash; the fresh fetch saves the real hash,
+  and if the run fails the original file is put back. The verified flag is not restored (false is the safe side).
 - Next:
   1. Step 6c: admin page: stats, schemes list, service centres (add/delete CSCs; API already in
      `admin_routes.py`), Run refresh now, refresh log (API from step 6b). Minimal.

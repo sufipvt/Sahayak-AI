@@ -9,7 +9,7 @@ from playwright.sync_api import sync_playwright
 
 from database import RefreshLog, SessionLocal, now
 from scheme_fetcher import (
-    TEXT_DIR, USER_AGENT, SECONDS_BETWEEN_REQUESTS, BlockedError,
+    SCHEMES_FILE, TEXT_DIR, USER_AGENT, SECONDS_BETWEEN_REQUESTS, BlockedError,
     fetch_scheme, load_schemes, load_scheme_text, make_content_hash, save_scheme_text,
 )
 from ingest_schemes import index_scheme
@@ -72,8 +72,58 @@ def refresh_scheme(page, scheme):
     return "changed"
 
 
+def mark_rules_unverified(scheme_ids):
+    """
+    The official text of these schemes changed, so our eligibility rules in
+    schemes.json may be out of date. Set "verified": false until a person
+    checks them again (the UI then shows "Rules not yet verified").
+    """
+    with open(SCHEMES_FILE, encoding="utf-8") as file:
+        data = json.load(file)
+
+    for scheme in data["schemes"]:
+        if scheme["scheme_id"] in scheme_ids:
+            scheme["verified"] = False
+
+    with open(SCHEMES_FILE, "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=2, ensure_ascii=False)
+
+
 # --------------------------------------------------
-# 3. REFRESH ALL WEB SCHEMES
+# 3. DEMO: PRETEND ONE SCHEME'S PAGE CHANGED
+# --------------------------------------------------
+# For the viva. Official pages rarely change, so we replace the saved
+# fingerprint (hash) of one scheme with a fake one. The next check then sees
+# a different hash and re-indexes the scheme, exactly like a real change.
+# The fresh fetch saves the real hash again. If the run fails before that,
+# the original file is put back, so nothing is left broken.
+
+FAKE_HASH = "simulated-old-fingerprint"
+
+
+def plant_fake_hash(scheme_id):
+    """Swap in the fake hash. Returns the original saved data (to restore later)."""
+    original = load_scheme_text(scheme_id)
+    if original is None:
+        raise ValueError(f"No saved text for '{scheme_id}'. Run scheme_fetcher.py first.")
+
+    restore_old_text(scheme_id, {**original, "content_hash": FAKE_HASH})
+    print(f"Simulation: saved fingerprint of {scheme_id} replaced with a fake one.")
+    return original
+
+
+def remove_fake_hash(scheme_id, original):
+    """If the fake hash is still there (the run failed), put the original file back."""
+    saved = load_scheme_text(scheme_id)
+    if saved is None or saved["content_hash"] == FAKE_HASH:
+        restore_old_text(scheme_id, original)
+        print(f"Simulation: original file of {scheme_id} restored.")
+    else:
+        print(f"Simulation: {scheme_id} now has its real fingerprint again ({saved['content_hash'][:12]}...).")
+
+
+# --------------------------------------------------
+# 4. REFRESH ALL WEB SCHEMES
 # --------------------------------------------------
 
 def finish_log(log, status, message):
@@ -82,16 +132,20 @@ def finish_log(log, status, message):
     log.finished_at = now()
 
 
-def run_refresh(triggered_by="schedule", only_ids=None):
+def run_refresh(triggered_by="schedule", only_ids=None, simulate_id=None):
     """
     Check every web scheme (one request every 5 seconds), re-index the changed
     ones, and write one row to the refresh_log table.
+    simulate_id: check only this scheme, pretending its page changed (demo).
     Returns the log row as a dict, or None if a refresh is already running.
     """
 
     if not refresh_lock.acquire(blocking=False):
         print("Refresh: another refresh is already running.")
         return None
+
+    if simulate_id:
+        triggered_by, only_ids = "simulation", [simulate_id]
 
     db = SessionLocal()
     log = RefreshLog(triggered_by=triggered_by, changed=[], failed=[])
@@ -104,8 +158,14 @@ def run_refresh(triggered_by="schedule", only_ids=None):
         schemes = [s for s in schemes if s["scheme_id"] in only_ids]
 
     changed, failed, blocked = [], [], False
+    original = None
 
     try:
+        if simulate_id:
+            if not schemes:
+                raise ValueError(f"'{simulate_id}' is not a web scheme in schemes.json")
+            original = plant_fake_hash(simulate_id)
+
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch()
             page = browser.new_page(user_agent=USER_AGENT)
@@ -136,7 +196,11 @@ def run_refresh(triggered_by="schedule", only_ids=None):
 
             browser.close()
 
-        # 3a. Keyword search (BM25) keeps the chunks in memory: load them again.
+        # 4a. Changed text = our rules may be out of date: mark them unverified.
+        if changed:
+            mark_rules_unverified(changed)
+
+        # 4b. Keyword search (BM25) keeps the chunks in memory: load them again.
         if changed:
             import hybrid_retriever
             hybrid_retriever.reload_index()
@@ -156,10 +220,17 @@ def run_refresh(triggered_by="schedule", only_ids=None):
         )
         if blocked:
             message += " Stopped early because a website blocked the request."
+        if changed:
+            message += f" Rules may need re-check: {', '.join(changed)}."
 
     except Exception as error:
         # For example: no internet, or the Playwright browser is missing.
         status, message = "failed", f"Refresh stopped: {error}"
+
+    # 4c. Demo only: never leave the fake fingerprint behind.
+    if original is not None:
+        remove_fake_hash(simulate_id, original)
+        message = f"Simulated change for {simulate_id}. {message}"
 
     log.changed, log.failed = changed, failed
     finish_log(log, status, message)
@@ -189,7 +260,7 @@ def log_info(log):
 
 
 # --------------------------------------------------
-# 4. START THE JOB (WEEKLY, OR NOW)
+# 5. START THE JOB (WEEKLY, OR NOW)
 # --------------------------------------------------
 
 scheduler = BackgroundScheduler()
@@ -239,15 +310,24 @@ def start_refresh_now():
 
 
 # --------------------------------------------------
-# 5. TEST (needs internet)
+# 6. TEST (needs internet)
 # --------------------------------------------------
-# python refresh_job.py              -> check all 15 web schemes
-# python refresh_job.py apy pmjjby   -> check only these schemes
+# python refresh_job.py                        -> check all 15 web schemes
+# python refresh_job.py apy pmjjby             -> check only these schemes
+# python refresh_job.py --simulate-change apy  -> demo: apy "changed", gets re-indexed
 
 if __name__ == "__main__":
-    only_ids = sys.argv[1:] or None
+    args = sys.argv[1:]
+    simulate_id = None
 
-    result = run_refresh(triggered_by="admin", only_ids=only_ids)
+    if "--simulate-change" in args:
+        position = args.index("--simulate-change")
+        if position + 1 >= len(args):
+            sys.exit("Usage: python refresh_job.py --simulate-change <scheme_id>")
+        simulate_id = args[position + 1]
+        args = []
+
+    result = run_refresh(triggered_by="admin", only_ids=args or None, simulate_id=simulate_id)
 
     print("\nResult:")
     for key, value in result.items():
