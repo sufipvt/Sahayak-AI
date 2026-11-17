@@ -62,6 +62,14 @@ export function UnverifiedNote() {
   )
 }
 
+// Show a server date in the user's local time. SQLite returns UTC times
+// without a "Z" at the end, so we add it before converting.
+export function formatDate(value) {
+  if (!value) return '–'
+  const hasZone = /([zZ]|[+-]\d\d:\d\d)$/.test(value)
+  return new Date(hasZone ? value : `${value}Z`).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
+}
+
 export function Citation({ n, title }) {
   return (
     <span

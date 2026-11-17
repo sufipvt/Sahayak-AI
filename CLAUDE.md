@@ -51,7 +51,8 @@ Repo: https://github.com/sufipvt/Sahayak-AI (branch `main`).
   content_hash (SHA-256), sections
 - `eval/eval_set.json` (30 questions + 3 out-of-scope + 10 profiles), `eval/results.json` (per re-ranker run)
 - `frontend/src/`: `api.js` (all backend calls), `store.js` (localStorage), `auth.jsx` (login
-  context), `voice.js`, `pages/`, `components/` (Answer, ChatPanel, ProfileCard, CentreMap, Layout, ui)
+  context), `voice.js`, `pages/`, `components/` (Answer, ChatPanel, ProfileCard, CentreMap, Layout, ui,
+  `admin/` RefreshPanel, SchemesPanel, CentresPanel)
 
 ## Run (PowerShell)
 ```
@@ -118,11 +119,13 @@ IGNDPS (disability unknown) and PMUY (gender unknown) give "Needs confirmation" 
   "Rules may need re-check: <ids>". `--simulate-change <id>` (CLI only, checks only that scheme,
   logged as triggered_by "simulation") plants a fake old hash; the fresh fetch saves the real hash,
   and if the run fails the original file is put back. The verified flag is not restored (false is the safe side).
+  Step 6c admin page (`pages/Admin.jsx` + `components/admin/`): stats, Run refresh now (polls
+  every 5 s while running), refresh log, service centres (list/add/delete), schemes table
+  (`GET /api/admin/schemes`: fetched_at, hash, sections, verified; amber row + "rules may need
+  re-check" when a refresh changed the scheme and it is still unverified). Evaluation placeholder removed.
 - Next:
-  1. Step 6c: admin page: stats, schemes list, service centres (add/delete CSCs; API already in
-     `admin_routes.py`), Run refresh now, refresh log (API from step 6b). Minimal.
-  2. Eligibility fix (if time before 19 Nov): add real rules from official criteria (education level
+  1. Eligibility fix (if time before 19 Nov): add real rules from official criteria (education level
      for NMMSS/PM-Vidyalaxmi, income-tax payer for APY, SC/ST-or-woman for Stand-Up India, basic
      PMAY-G); UI shows "Needs confirmation" schemes in a separate "May also apply" section; re-run
      the eligibility evaluation and show before/after.
-  3. After 19 Nov: Step 7 Docker + full README (README file table still lacks step 5/6 files).
+  2. After 19 Nov: Step 7 Docker + full README (README file table still lacks step 5/6 files).

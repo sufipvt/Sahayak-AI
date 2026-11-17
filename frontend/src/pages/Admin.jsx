@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react'
-import { Users, MessageSquare, MessagesSquare, Star, RefreshCw, Target, Info } from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
+import { Users, MessageSquare, MessagesSquare, Star } from 'lucide-react'
 import { Page, Card } from '../components/ui.jsx'
+import RefreshPanel from '../components/admin/RefreshPanel.jsx'
+import SchemesPanel from '../components/admin/SchemesPanel.jsx'
+import CentresPanel from '../components/admin/CentresPanel.jsx'
 import { useAuth } from '../auth.jsx'
 import { getAdminStats, errorMessage } from '../api.js'
 
@@ -8,6 +11,10 @@ export default function Admin() {
   const { user } = useAuth()
   const [stats, setStats] = useState(null)
   const [error, setError] = useState('')
+
+  // When a refresh finishes, the schemes list loads again (new dates, highlights).
+  const [schemesKey, setSchemesKey] = useState(0)
+  const refreshFinished = useCallback(() => setSchemesKey((key) => key + 1), [])
 
   useEffect(() => {
     if (user?.role !== 'admin') return
@@ -40,7 +47,7 @@ export default function Admin() {
   ]
 
   return (
-    <Page title="Admin dashboard" subtitle="Usage of Sahayak. Refresh and evaluation tools arrive in the next step.">
+    <Page title="Admin dashboard" subtitle="Usage, official page refresh, schemes and service centres.">
       {error && <p className="mb-4 text-rose-700">{error}</p>}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map(({ Icon, label, value, note }) => (
@@ -55,34 +62,13 @@ export default function Admin() {
         ))}
       </div>
 
-      <div className="mt-6 grid lg:grid-cols-[1.4fr_1fr] gap-6">
-        <Card className="p-6">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <h2 className="text-lg font-bold text-navy-900 flex items-center gap-2"><RefreshCw className="w-5 h-5 text-saffron-600" /> Weekly data refresh</h2>
-              <p className="text-sm text-slate-500 mt-1">Refresh history is unavailable until a data pipeline is connected.</p>
-            </div>
-            <button disabled className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold bg-saffron-500 text-navy-900 opacity-50 cursor-not-allowed">
-              <RefreshCw className="w-4 h-4" /> Refresh unavailable
-            </button>
-          </div>
+      <div className="mt-6 grid lg:grid-cols-[1.5fr_1fr] gap-6 items-start">
+        <RefreshPanel onFinished={refreshFinished} />
+        <CentresPanel />
+      </div>
 
-          <div className="mt-5 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
-            <Info className="w-8 h-8 mx-auto text-slate-400" />
-            <p className="mt-2 font-semibold text-navy-900">No refresh activity available</p>
-            <p className="mt-1 text-sm text-slate-500">Refresh actions and scheme change approvals are not connected.</p>
-          </div>
-        </Card>
-
-        <Card className="p-6">
-          <h2 className="text-lg font-bold text-navy-900 flex items-center gap-2"><Target className="w-5 h-5 text-saffron-600" /> Evaluation</h2>
-          <p className="text-sm text-slate-500 mt-1">Evaluation results are not available.</p>
-          <div className="mt-5 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
-            <Info className="w-8 h-8 mx-auto text-slate-400" />
-            <p className="mt-2 font-semibold text-navy-900">No evaluation data connected</p>
-            <p className="mt-1 text-sm text-slate-500">No live performance metrics or test-set scores are shown.</p>
-          </div>
-        </Card>
+      <div className="mt-6">
+        <SchemesPanel reloadKey={schemesKey} />
       </div>
     </Page>
   )

@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from auth import require_admin
 from database import Conversation, Message, RefreshLog, ServiceCentre, User, get_db
+from scheme_fetcher import load_schemes, load_scheme_text
 import refresh_job
 
 
@@ -26,6 +27,41 @@ def stats(admin: User = Depends(require_admin), db: Session = Depends(get_db)):
         "helpful_answers": answers.filter(Message.rating == 1).count(),
         "unhelpful_answers": answers.filter(Message.rating == -1).count(),
     }
+
+
+# --------------------------------------------------
+# SCHEMES (what is saved, and which ones need a rules re-check)
+# --------------------------------------------------
+
+@router.get("/schemes")
+def list_schemes(admin: User = Depends(require_admin), db: Session = Depends(get_db)):
+    # 1. When did a refresh last find each scheme's page changed?
+    last_change = {}
+    for log in db.query(RefreshLog).order_by(RefreshLog.id):
+        for scheme_id in log.changed or []:
+            last_change[scheme_id] = {"at": log.finished_at, "by": log.triggered_by}
+
+    # 2. One row per scheme. needs_recheck = the page changed and nobody has
+    #    verified the rules since (refresh_job.py sets "verified": false).
+    rows = []
+    for scheme in load_schemes():
+        saved = load_scheme_text(scheme["scheme_id"]) or {}
+        change = last_change.get(scheme["scheme_id"])
+        verified = scheme.get("verified", False)
+
+        rows.append({
+            "scheme_id": scheme["scheme_id"],
+            "name": scheme["name"],
+            "source": scheme["source"],
+            "url": scheme.get("url"),
+            "verified": verified,
+            "fetched_at": saved.get("fetched_at"),
+            "content_hash": (saved.get("content_hash") or "")[:12],
+            "sections": len(saved.get("sections", {})),
+            "last_change": change,
+            "needs_recheck": change is not None and not verified,
+        })
+    return rows
 
 
 # --------------------------------------------------

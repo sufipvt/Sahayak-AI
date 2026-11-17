@@ -94,6 +94,14 @@ export async function getCentres({ place, lat, lon }) {
 
 // 8. Admin only.
 export const getAdminStats = async () => (await api.get('/admin/stats')).data
+export const getAdminSchemes = async () => (await api.get('/admin/schemes')).data
+
+export const getRefreshLog = async () => (await api.get('/admin/refresh/log')).data
+export const runRefreshNow = async () => (await api.post('/admin/refresh')).data
+
+export const getAdminCentres = async () => (await api.get('/admin/centres')).data
+export const addAdminCentre = async (centre) => (await api.post('/admin/centres', centre)).data
+export const deleteAdminCentre = async (id) => (await api.delete(`/admin/centres/${id}`)).data
 
 // Turn any error into a short message for the user.
 export function errorMessage(error) {
