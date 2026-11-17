@@ -34,8 +34,11 @@ RULES:
    Mention any detail that still needs to be confirmed.
 10. Never assume facts about the user that are not in the USER PROFILE
    (for example, that they own land). Say "if you ..." instead.
-11. Never give an amount, date or rule that is not in the CONTEXT, even if
-   you know it. Leave it out instead.
+11. Every fact must come from the CONTEXT. Never add an amount, date, rule,
+   document or application step from your own knowledge, even if you know it.
+   If the user asks for something the CONTEXT does not cover (for example the
+   documents needed), say it is not in the information you have and point to
+   the scheme's official page.
 12. Format: short headings and bullet lists. Do not use tables.
    Write citations exactly like [Source 1].
 13. Keep the answer under 150 words, unless the user asks for more
@@ -203,13 +206,9 @@ def choose_schemes_to_search(question, profile, history):
     return None, matches
 
 
-def ask_sahayak(question, profile=None, scheme_ids=None, history=None):
-    """
-    question   : the user's question
-    profile    : the user's profile (age, state, income ...) or None
-    scheme_ids : search only these schemes (used by the scheme detail page)
-    history    : the last few messages [{"role": "user"/"assistant", "content": ...}]
-    """
+def retrieve_documents(question, profile=None, scheme_ids=None, history=None):
+    """Steps 1-3: find the 5 chunks the answer will be based on.
+    Returns (documents, matches). evaluate.py also uses this."""
 
     # Step 1: Decide which schemes to search.
     if scheme_ids is None:
@@ -229,22 +228,42 @@ def ask_sahayak(question, profile=None, scheme_ids=None, history=None):
     ranked = prefer_useful_sections(ranked)
     documents = limit_per_scheme([r["document"] for r in ranked], per_scheme=2, total=5)
 
-    # Step 4: Generate the answer (or fall back if the LLM fails).
+    return documents, matches
+
+
+def generate_answer(question, documents, profile=None, matches=None, history=None):
+    """Step 4: write the answer from the documents only.
+    Returns (answer, llm_available). evaluate.py also uses this."""
+
     prompt = PROMPT.format(
         history=describe_history(history),
         profile=describe_profile(profile),
-        eligibility=describe_matches(matches),
+        eligibility=describe_matches(matches or []),
         context=build_context(documents) or "No matching information found.",
         question=question,
     )
 
     try:
-        answer = llm.invoke(prompt).content
-        llm_available = True
+        return llm.invoke(prompt).content, True
     except Exception as error:
+        # If the LLM fails, still show the official passages we found.
         print(f"LLM error: {error}")
-        answer = fallback_answer(documents)
-        llm_available = False
+        return fallback_answer(documents), False
+
+
+def ask_sahayak(question, profile=None, scheme_ids=None, history=None):
+    """
+    question   : the user's question
+    profile    : the user's profile (age, state, income ...) or None
+    scheme_ids : search only these schemes (used by the scheme detail page)
+    history    : the last few messages [{"role": "user"/"assistant", "content": ...}]
+    """
+
+    # Steps 1-3: retrieve and rerank.
+    documents, matches = retrieve_documents(question, profile, scheme_ids, history)
+
+    # Step 4: Generate the answer (or fall back if the LLM fails).
+    answer, llm_available = generate_answer(question, documents, profile, matches, history)
 
     # Step 5: Collect the sources so the UI can show them as citations.
     sources = []

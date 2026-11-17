@@ -1,0 +1,1748 @@
+{
+  "runs": {
+    "minilm": {
+      "summary": {
+        "reranker": "cross-encoder/ms-marco-MiniLM-L6-v2",
+        "judge": "qwen/qwen3.8-27b",
+        "recall_at_5": 1.0,
+        "recall_at_5_named": 1.0,
+        "recall_at_5_not_named": 1.0,
+        "scheme_recall_at_5": 1.0,
+        "mrr": 0.983,
+        "avg_retrieval_seconds": 0.983,
+        "eligibility_accuracy": 0.793,
+        "eligibility_strict_accuracy": 0.787,
+        "eligibility_precision": 0.483,
+        "eligibility_recall": 1.0,
+        "faithfulness": 0.986,
+        "avg_answer_seconds": 1.174,
+        "avg_answer_words": 99,
+        "correct_refusal_rate": 1.0
+      },
+      "details": {
+        "retrieval": [
+          {
+            "id": "q01",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "apy/eligibility",
+              "apy/benefits"
+            ],
+            "seconds": 0.97
+          },
+          {
+            "id": "q02",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-kisan/description",
+              "pm-kisan/benefits"
+            ],
+            "seconds": 0.75
+          },
+          {
+            "id": "q03",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-kisan/exclusions",
+              "pm-kisan/eligibility"
+            ],
+            "seconds": 0.68
+          },
+          {
+            "id": "q04",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "kcc/documents",
+              "kcc/description"
+            ],
+            "seconds": 0.95
+          },
+          {
+            "id": "q05",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmjjby/how_to_apply",
+              "pmjjby/eligibility"
+            ],
+            "seconds": 0.24
+          },
+          {
+            "id": "q06",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmjjby/benefits",
+              "pmjjby/description"
+            ],
+            "seconds": 0.28
+          },
+          {
+            "id": "q07",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "nmmss/benefits",
+              "nmmss/description"
+            ],
+            "seconds": 1.02
+          },
+          {
+            "id": "q08",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmmy/benefits",
+              "pmmy/description"
+            ],
+            "seconds": 0.69
+          },
+          {
+            "id": "q09",
+            "names_scheme": true,
+            "rank": 2,
+            "reciprocal_rank": 0.5,
+            "scheme_found": true,
+            "retrieved": [
+              "sui/how_to_apply",
+              "sui/eligibility"
+            ],
+            "seconds": 0.59
+          },
+          {
+            "id": "q10",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-svanidhi/benefits",
+              "pm-svanidhi/description"
+            ],
+            "seconds": 0.46
+          },
+          {
+            "id": "q11",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmuy/documents",
+              "pmuy/eligibility"
+            ],
+            "seconds": 0.56
+          },
+          {
+            "id": "q12",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmay-g/benefits",
+              "pmay-g/description"
+            ],
+            "seconds": 1.2
+          },
+          {
+            "id": "q13",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "cgss/eligibility",
+              "cgss/description"
+            ],
+            "seconds": 0.55
+          },
+          {
+            "id": "q14",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-sym/benefits",
+              "pm-sym/description"
+            ],
+            "seconds": 0.74
+          },
+          {
+            "id": "q15",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "igndps/how_to_apply",
+              "igndps/eligibility"
+            ],
+            "seconds": 0.24
+          },
+          {
+            "id": "q16",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-sym/description",
+              "pm-kisan/exclusions",
+              "pm-sym/benefits",
+              "igndps/benefits",
+              "apy/benefits"
+            ],
+            "seconds": 1.2
+          },
+          {
+            "id": "q17",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmfby/benefits",
+              "pmfby/description"
+            ],
+            "seconds": 0.86
+          },
+          {
+            "id": "q18",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmuy/eligibility",
+              "pmuy/description",
+              "pmay-g/benefits",
+              "pmay-g/eligibility",
+              "pm-svanidhi/benefits"
+            ],
+            "seconds": 1.18
+          },
+          {
+            "id": "q19",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "igndps/description",
+              "igndps/benefits",
+              "pm-kisan/exclusions",
+              "pmay-g/eligibility",
+              "pm-sym/benefits"
+            ],
+            "seconds": 1.2
+          },
+          {
+            "id": "q20",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmvs/benefits",
+              "pmvs/description",
+              "startup-playbook/guide",
+              "pm-svanidhi/description",
+              "startup-playbook/guide"
+            ],
+            "seconds": 1.33
+          },
+          {
+            "id": "q21",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmjjby/benefits",
+              "pmjjby/description",
+              "pmfby/benefits",
+              "igndps/benefits",
+              "pmfby/benefits"
+            ],
+            "seconds": 1.22
+          },
+          {
+            "id": "q22",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "kcc/benefits",
+              "kcc/benefits",
+              "pmfby/eligibility",
+              "pmfby/exclusions",
+              "pm-kisan/description"
+            ],
+            "seconds": 1.35
+          },
+          {
+            "id": "q23",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-kisan/description",
+              "pm-kisan/benefits",
+              "pmfby/benefits",
+              "kcc/benefits",
+              "startup-playbook/guide"
+            ],
+            "seconds": 2.0
+          },
+          {
+            "id": "q24",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "nmmss/eligibility",
+              "nmmss/eligibility",
+              "pmvs/eligibility",
+              "pmvs/description",
+              "startup-playbook/guide"
+            ],
+            "seconds": 1.13
+          },
+          {
+            "id": "q25",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-svanidhi/benefits",
+              "pm-svanidhi/benefits",
+              "startup-playbook/guide",
+              "startup-playbook/guide",
+              "pmvs/benefits"
+            ],
+            "seconds": 1.35
+          },
+          {
+            "id": "q26",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmay-g/description",
+              "pmay-g/description",
+              "startup-playbook/guide",
+              "pmuy/eligibility",
+              "pmvs/description"
+            ],
+            "seconds": 1.2
+          },
+          {
+            "id": "q27",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "sui/description",
+              "startup-playbook/guide",
+              "startup-playbook/guide"
+            ],
+            "seconds": 1.38
+          },
+          {
+            "id": "q28",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "apy/benefits",
+              "pm-sym/benefits",
+              "pm-sym/description",
+              "apy/eligibility",
+              "igndps/benefits"
+            ],
+            "seconds": 1.45
+          },
+          {
+            "id": "q29",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmmy/description",
+              "startup-playbook/guide",
+              "startup-playbook/guide",
+              "pmmy/benefits",
+              "sui/description"
+            ],
+            "seconds": 1.49
+          },
+          {
+            "id": "q30",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "cgss/description",
+              "cgss/eligibility",
+              "startup-playbook/guide",
+              "startup-playbook/guide",
+              "sui/description"
+            ],
+            "seconds": 1.24
+          }
+        ],
+        "eligibility": [
+          {
+            "id": "p01",
+            "extracted_profile": {
+              "age": 45,
+              "state": "Punjab",
+              "annual_income": 200000,
+              "occupation": "farmer"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "pmuy: expected not, got confirm",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p02",
+            "extracted_profile": {
+              "age": 20,
+              "state": "Haryana",
+              "annual_income": 300000,
+              "occupation": "student",
+              "education": "engineering"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "nmmss: expected not, got likely",
+              "pmvs: expected confirm, got likely",
+              "pmuy: expected not, got confirm",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p03",
+            "extracted_profile": {
+              "age": 30,
+              "gender": "female",
+              "state": "Bihar",
+              "occupation": "entrepreneur"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "pmuy: expected not, got likely",
+              "pmay-g: expected not, got confirm",
+              "cgss: expected not, got likely"
+            ]
+          },
+          {
+            "id": "p04",
+            "extracted_profile": {
+              "age": 35,
+              "state": "Uttar Pradesh",
+              "annual_income": 120000,
+              "occupation": "street vendor"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "pmuy: expected not, got confirm",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p05",
+            "extracted_profile": {
+              "age": 65,
+              "state": "Kerala",
+              "occupation": "retired"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "pmuy: expected not, got confirm",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p06",
+            "extracted_profile": {
+              "age": 28,
+              "state": "Odisha",
+              "occupation": "unemployed",
+              "disability": true
+            },
+            "differences": [
+              "pmuy: expected not, got confirm",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p07",
+            "extracted_profile": {
+              "age": 42,
+              "gender": "female",
+              "state": "Maharashtra",
+              "occupation": "farmer"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "pmuy: expected not, got likely",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p08",
+            "extracted_profile": {
+              "age": 15,
+              "state": "Rajasthan",
+              "annual_income": 150000,
+              "occupation": "student",
+              "education": "Class 9"
+            },
+            "differences": [
+              "pmvs: expected not, got likely",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p09",
+            "extracted_profile": {
+              "age": 33,
+              "state": "Karnataka",
+              "annual_income": 1200000,
+              "occupation": "salaried"
+            },
+            "differences": [
+              "apy: expected not, got likely",
+              "igndps: expected not, got confirm",
+              "pmuy: expected not, got confirm",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p10",
+            "extracted_profile": {
+              "age": 26,
+              "gender": "male",
+              "social_category": "General",
+              "occupation": "entrepreneur"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "sui: expected not, got likely",
+              "pmay-g: expected not, got confirm"
+            ]
+          }
+        ],
+        "faithfulness": [
+          {
+            "id": "q01",
+            "faithfulness": 1.0,
+            "statements": 2,
+            "unsupported": [],
+            "answer_words": 22,
+            "answer_seconds": 0.57,
+            "answer": "**Age limit to join Atal Pension Yojana (APY)**  \n- Minimum joining age: **18 years**  \n- Maximum joining age: **40 years**  \n\n[Source 1]"
+          },
+          {
+            "id": "q02",
+            "faithfulness": 1.0,
+            "statements": 4,
+            "unsupported": [],
+            "answer_words": 31,
+            "answer_seconds": 0.59,
+            "answer": "**PM‑KISAN payment**\n\n- Each eligible farmer’s family receives **₹ 6,000 per year**.  \n- The amount is paid in **three equal installments of ₹ 2,000** every four months.  \n\n[Source 1]  \n[Source 2]"
+          },
+          {
+            "id": "q03",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 108,
+            "answer_seconds": 1.62,
+            "answer": "**Who cannot get PM‑KISAN benefits**\n\n- Institutional land‑holders (e.g., farms owned by companies, cooperatives, etc.)【Source 1】  \n- Farmer families with any member who is or was:\n  - A constitutional office holder (e.g., President, Vice‑President, Governor)【Source 1】  \n  - A Minister, State Minister, Member of Parliament (Lok Sabha, Rajya Sabha), Member of a State Legislative Assembly or Council, Mayor of a Municipal Corporation, or Chairperson of a District Panchayat【Source 1】  \n- Serving or retired officers and employees of Central or State Government ministries, departments, public sector enterprises, attached/autonomous institutions, and regular employees of local bodies (excluding multitasking staff, Class IV/Group D workers)【Source 1】  \n\nAll other land‑holding farmer families are eligible."
+          },
+          {
+            "id": "q04",
+            "faithfulness": 1.0,
+            "statements": 9,
+            "unsupported": [],
+            "answer_words": 72,
+            "answer_seconds": 0.76,
+            "answer": "**Documents needed for Kisan Credit Card (KCC)**  \n\n- Application form  \n- Two passport‑size photographs  \n- Identity proof (e.g., Driving Licence, Aadhaar Card, Voter ID, Passport)  \n- Address proof (e.g., Driving Licence, Aadhaar Card)  \n- Certified proof of landholding from revenue authorities  \n- Cropping pattern details with acreage  \n- Security documents if loan amount exceeds ₹1.60 lakhs / ₹3.00 lakhs (as applicable)  \n- Any other documents required by the sanctioning bank  \n\n[Source 1]"
+          },
+          {
+            "id": "q05",
+            "faithfulness": 1.0,
+            "statements": 9,
+            "unsupported": [],
+            "answer_words": 108,
+            "answer_seconds": 1.07,
+            "answer": "**How to apply for Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)**  \n\n**Eligibility (to confirm before applying)**  \n- Age 18‑50 years.  \n- Must have an individual bank or post‑office account.【Source 2】\n\n**Application steps (offline)**  \n1. Download the “Consent‑cum‑Declaration Form” from the link provided and print it.【Source 1】  \n2. Fill in the form, sign it, and attach self‑attested copies of the required documents.  \n3. Submit the completed form to the authorised official at your bank or post office.  \n4. The official will give you an “Acknowledgement Slip cum Certificate of Insurance”.【Source 1】\n\n*(Online option is also available, but the offline steps above are the ones detailed in the provided information.)*"
+          },
+          {
+            "id": "q06",
+            "faithfulness": 1.0,
+            "statements": 2,
+            "unsupported": [],
+            "answer_words": 18,
+            "answer_seconds": 0.54,
+            "answer": "**Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)**  \n- Yearly premium: **₹ 436 per annum** for each subscriber【Source 1】."
+          },
+          {
+            "id": "q07",
+            "faithfulness": 1.0,
+            "statements": 4,
+            "unsupported": [],
+            "answer_words": 39,
+            "answer_seconds": 0.69,
+            "answer": "**National Means‑cum‑Merit Scholarship Scheme (NMMSS)**  \n\n- The scheme awards **₹12,000 per year** to each eligible student (₹1,000 per month) [Source 1].  \n\n- This amount is given for up to four years, from Class IX to Class XII [Source 2].  "
+          },
+          {
+            "id": "q08",
+            "faithfulness": 1.0,
+            "statements": 5,
+            "unsupported": [],
+            "answer_words": 61,
+            "answer_seconds": 1.4,
+            "answer": "**Loan categories under Pradhan Mantri Mudra Yojana (PMMY)**  \n\n- **Shishu** – loans up to **₹50,000**【Source 1】  \n- **Kishore** – loans above ₹50,000 and up to **₹5 lakhs**【Source 1】  \n- **Tarun** – loans above ₹5 lakhs and up to **₹10 lakhs**【Source 1】  \n- **Tarun Plus** – loans up to **₹20 lakhs** for entrepreneurs who have fully repaid a previous Tarun‑category loan【Source 1】"
+          },
+          {
+            "id": "q09",
+            "faithfulness": 1.0,
+            "statements": 7,
+            "unsupported": [],
+            "answer_words": 73,
+            "answer_seconds": 0.59,
+            "answer": "**Who can apply for Stand‑Up India?**\n\n- Must be at least **18 years old** [Source 2]  \n- Must be a **male belonging to SC/ST** (if male applicant) [Source 2]  \n- Must **not be in default** with any bank or financial institution [Source 2]  \n- The scheme funds **new (greenfield) enterprises** only [Source 2]  \n\nIf you meet these points, you can register online and then apply for the loan through a bank [Source 1]."
+          },
+          {
+            "id": "q10",
+            "faithfulness": 1.0,
+            "statements": 3,
+            "unsupported": [],
+            "answer_words": 68,
+            "answer_seconds": 1.42,
+            "answer": "**PM Street Vendor’s AtmaNirbhar Nidhi (PM SVANidhi)**  \n\n- The scheme initially offers a collateral‑free working‑capital loan of **up to ₹10,000** to street vendors【Source 1】.  \n- After the first loan, vendors may be eligible for **subsequent loans of ₹20,000 and ₹50,000** with the same 7 % interest subsidy【Source 2】.  \n\nSo, a street vendor can receive a first loan of up to ₹10,000, and later loans of ₹20,000 and ₹50,000."
+          },
+          {
+            "id": "q11",
+            "faithfulness": 1.0,
+            "statements": 10,
+            "unsupported": [],
+            "answer_words": 84,
+            "answer_seconds": 3.05,
+            "answer": "**Documents needed for Pradhan Mantri Ujjwala Yojana (PMUY)**  \n\n- Valid photo ID  \n- Ration card of the state where you apply (or other State Govt. document showing family composition / self‑declaration for migrants)  \n- Proof of address – Aadhaar can serve as both ID and address proof if the connection is at the same address; otherwise a separate address proof is required  \n- Bank account number and IFSC code  \n- Aadhaar (not mandatory for applicants from Assam and Meghalaya)  \n- Passport‑size photograph  \n\n[Source 1]"
+          },
+          {
+            "id": "q12",
+            "faithfulness": 1.0,
+            "statements": 8,
+            "unsupported": [],
+            "answer_words": 46,
+            "answer_seconds": 0.99,
+            "answer": "**PMAY‑G – House‑building assistance**\n\n- **Plain (non‑hilly) areas:** ₹ 1,20,000 per house.  \n- **Hilly, difficult, and IAP districts (Himalayan states, North‑Eastern states, J&K UTs):** ₹ 1,30,000 per house.  \n\nThese amounts are the financial assistance provided to each eligible beneficiary for constructing a permanent house [Source 1]."
+          },
+          {
+            "id": "q13",
+            "faithfulness": 1.0,
+            "statements": 8,
+            "unsupported": [],
+            "answer_words": 104,
+            "answer_seconds": 0.95,
+            "answer": "**Who can borrow under the Credit Guarantee Scheme for Startups (CGSS)**  \n\n- The borrower must be a **startup that is officially recognised by DPIIT** through the Gazette Notifications issued from time to time.  \n- The startup must **not be in default** with any lending or investing institution.  \n- It must also **not be classified as a Non‑Performing Asset (NPA) under RBI guidelines**.  \n- Finally, the startup’s eligibility has to be **certified by the Member Institution (the bank, NBFC or VDF) that will provide the guarantee cover**.  \n\nThese conditions together determine which startups are allowed to obtain loans backed by the CGSS guarantee.  \n\n[Source 1]"
+          },
+          {
+            "id": "q14",
+            "faithfulness": 1.0,
+            "statements": 2,
+            "unsupported": [],
+            "answer_words": 31,
+            "answer_seconds": 1.01,
+            "answer": "**Pension amount under Pradhan Mantri Shram Yogi Maan‑dhan (PM‑SYM)**  \n\n- The scheme guarantees a **minimum assured pension of ₹3,000 per month** to the subscriber after they turn 60 years old【Source 1】."
+          },
+          {
+            "id": "q15",
+            "faithfulness": 1.0,
+            "statements": 10,
+            "unsupported": [],
+            "answer_words": 99,
+            "answer_seconds": 0.86,
+            "answer": "**How to apply for the Indira Gandhi National Disability Pension Scheme (IGNDPS)**  \n\n- **Choose online or offline mode**【Source 1】  \n- **Online method**  \n  1. Download the **UMANG app** or go to the UMANG website https://web.umang.gov.in/web_new/home【Source 1】  \n  2. Log in with your mobile number and OTP【Source 1】  \n  3. Search for **“NSAP”** (National Social Assistance Programme)【Source 1】  \n  4. Click **“Apply Online”**【Source 1】  \n  5. Fill in basic details, select the pension payment mode, upload a recent photo, and submit【Source 1】  \n\n- **Offline method** – not detailed in the provided information; you would need to visit the official scheme page for offline steps【Source 1】."
+          },
+          {
+            "id": "q16",
+            "faithfulness": 1.0,
+            "statements": 11,
+            "unsupported": [],
+            "answer_words": 117,
+            "answer_seconds": 1.56,
+            "answer": "**Pradhan Mantri Shram Yogi Maan‑dhan (PM‑SYM)**  \n\n- **Who can join:** Unorganised workers aged 18‑40 years whose monthly income is ₹15,000 or less【Source 1】.  \n- **What you get:**  \n  - Minimum assured pension of **₹3,000 per month** after you turn 60 years【Source 3】.  \n  - The government matches your contribution 50:50 (your age‑specific contribution of ₹55‑₹200 is doubled)【Source 3】.  \n  - If you die before 60, your spouse can continue the scheme and later receive a family pension equal to 50 % of your pension【Source 3】.  \n- **How to apply:** Enrolment is done through **Common Services Centres**; the scheme is managed by LIC【Source 1】.  \n\n*No other scheme in the provided information specifically targets unorganised workers with income below ₹15,000 per month.*"
+          },
+          {
+            "id": "q17",
+            "faithfulness": 1.0,
+            "statements": 10,
+            "unsupported": [],
+            "answer_words": 138,
+            "answer_seconds": 0.97,
+            "answer": "**Pradhan Mantri Fasal Bima Yojana (PMFBY)**  \n\n- **What it covers** – Provides insurance for crop loss caused by natural disasters such as drought, floods, floods‑related inundation, landslides, as well as pests and diseases【Source 2】.  \n- **How it helps you** – If your crops are damaged by drought or flood, you can claim an indemnity payment based on the insured sum for those losses【Source 1】.  \n\n**How to apply** (brief steps)  \n- Visit the official scheme page or a participating bank/insurance office.  \n- Submit the required farmer‑identification and land‑ownership documents (not listed in the provided info).  \n- Pay the premium (cost‑effective, subsidised by the government).  \n\n**What you still need to confirm**  \n- Exact premium amount for your crop and region.  \n- Specific documents required for registration (check the official page).  \n\nFor more details, see the PMFBY page: https://www.myscheme.gov.in/schemes/pmfby【Source 1】【Source 2】"
+          },
+          {
+            "id": "q18",
+            "faithfulness": 0.917,
+            "statements": 12,
+            "unsupported": [
+              "PMUY offers a free LPG connection to eligible adult women."
+            ],
+            "answer_words": 136,
+            "answer_seconds": 1.2,
+            "answer": "**Pradhan Mantri Ujjwala Yojana (PMUY)**  \n\n- **What it offers:** A free LPG connection for an adult woman from a poor household that does not already have an LPG connection [Source 2].  \n- **Who can apply:**  \n  - The woman must belong to a poor household listed in the SECC‑2011 data, **or** be from any of these groups: SC/ST, PMAY beneficiary, Antyodaya Anna Yojana (AAY) beneficiary, forest dweller, Most Backward Classes (MBC), tea‑ex‑tea garden tribes, or residents of river islands (supporting document required) [Source 1].  \n  - If she does not fall in the above categories, she can still apply by submitting a 14‑point declaration as a poor‑household claim [Source 1].  \n\n*If you meet any of these conditions, you are likely eligible, but you will need to provide the relevant proof (SECC list, beneficiary certificates, or the 14‑point declaration).*"
+          },
+          {
+            "id": "q19",
+            "faithfulness": 1.0,
+            "statements": 7,
+            "unsupported": [],
+            "answer_words": 92,
+            "answer_seconds": 1.79,
+            "answer": "**Indira Gandhi National Disability Pension Scheme (IGNDPS)**  \n\n- **Who can get it?**  \n  - Any disabled person aged > 18 years.  \n  - Disability must be **80 % or more**.  \n  - Must belong to the poverty line.  \n\n- **Monthly pension amount**  \n  - Rs. 300 per month for beneficiaries aged 18‑79 years.  \n  - Rs. 500 per month for beneficiaries aged 80 years and above.  \n\n- **Key points**  \n  - The scheme is part of the National Social Assistance Programme and was launched in February 2009.  \n\n**Sources**  \n- Eligibility description: [Source 1]  \n- Pension amounts: [Source 2]  "
+          },
+          {
+            "id": "q20",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 224,
+            "answer_seconds": 2.14,
+            "answer": "**Pradhan Mantri Vidyalaxmi (PM‑Vidyalaxmi) Scheme**  \n*Education loan – collateral‑free, guarantor‑free*  \n\n- **Who can apply** – Students who have secured admission on merit to any of the 860 designated Quality Higher Educational Institutions (QHEIs) in India [Source 2].  \n- **Loan features** –  \n  - No upper limit on loan amount; covers tuition, hostel, mess, laptop, living expenses, etc. [Source 1]  \n  - Government guarantees 75 % of the loan up to ₹7.5 lakh, regardless of family income [Source 1]  \n  - 3 % interest subvention for families earning ≤ ₹8 lakh per year (for loans up to ₹10 lakh) [Source 1][Source 2]  \n  - Interest rate = bank’s EBLR + 0.5 %; extra 1 % concession if interest is paid during study [Source 1]  \n  - Repayment up to 15 years after the moratorium (course period + 1 year) [Source 1]  \n\n**Documents usually required** (not exhaustive, check the official page)  \n- Admission letter from a QHEI  \n- Identity proof (Aadhaar, PAN)  \n- Income proof of parents/guardian (if asked)  \n- Bank account details  \n\n**How to apply**  \n- Apply online through the scheme’s portal (hosted by Canara Bank) [Source 2]  \n- Fill the digital form, upload the above documents, and submit.  \n\n*If you have admission to a top college that is on the QHEI list, you are likely eligible. You still need to confirm the college’s inclusion and prepare the required documents.*"
+          },
+          {
+            "id": "q21",
+            "faithfulness": 1.0,
+            "statements": 7,
+            "unsupported": [],
+            "answer_words": 110,
+            "answer_seconds": 1.05,
+            "answer": "**Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)**  \n\n- **Cover:** Life insurance of **₹ 2 lakh** for death due to any reason【Source 1】.  \n- **Premium:** **₹ 436 per year**, auto‑debited from the subscriber’s bank or post‑office account【Source 1】.  \n- **Who can join:** Any individual who holds an account with a participating bank or post office and is **aged 18‑50 years**【Source 2】.  \n\n*If you are between 18 and 50 and have a bank/post‑office account, you can enroll by authorising the annual premium debit. The scheme is renewable each year.*  \n\n*Details on required documents or exact application steps are not provided in the available information; you can check the official page for that.*"
+          },
+          {
+            "id": "q22",
+            "faithfulness": 1.0,
+            "statements": 8,
+            "unsupported": [],
+            "answer_words": 54,
+            "answer_seconds": 0.84,
+            "answer": "**Kisan Credit Card (KCC)**  \n\n- Provides short‑term credit to farmers for crop cultivation, post‑harvest needs, household consumption, and farm asset repairs【Source 1】.  \n- The card limit is split into a short‑term cash‑credit sub‑limit and a term‑loan sub‑limit for easier management【Source 2】.  \n\n*This scheme is the one that specifically offers short‑term credit for growing crops.*"
+          },
+          {
+            "id": "q23",
+            "faithfulness": 1.0,
+            "statements": 6,
+            "unsupported": [],
+            "answer_words": 47,
+            "answer_seconds": 0.57,
+            "answer": "**Pradhan Mantri Kisan Samman Nidhi (PM‑KISAN)**  \n- Provides **₹6,000 per family per year** as direct cash support.  \n- The amount is paid in **three equal installments of ₹2,000** every four months【Source 1】【Source 2】.  \n\nNo other scheme in the provided information offers a fixed ₹6,000 annual income support."
+          },
+          {
+            "id": "q24",
+            "faithfulness": 1.0,
+            "statements": 9,
+            "unsupported": [],
+            "answer_words": 163,
+            "answer_seconds": 1.97,
+            "answer": "**National Means‑cum‑Merit Scholarship Scheme (NMMSS)**  \n- **Who can apply?**  \n  - Students who have **cleared promotion from Class 8 to Class 9** — this is the entry point for the scholarship. [Source 1]  \n  - The scholarship continues for Classes 9‑12 (maximum four years) **only for studies in India**. [Source 1]  \n- **Academic requirements**  \n  - To keep the scholarship in Class 10 and Class 12, the student must get **clear promotion in the first attempt** (9→10 and 11→12). [Source 1][Source 2]  \n  - For continuation after Class 10, a **minimum of 60 % marks** in the Class 10 exam is needed (relaxed by 5 % for SC/ST). [Source 1][Source 2]  \n- **Other conditions**  \n  - No gap of one academic session is allowed; a gap will discontinue the scholarship permanently. [Source 2]  \n\n**What you still need to confirm**  \n- Exact documents required (e.g., mark sheets, promotion certificates) – not listed in the provided context.  \n- Application procedure and deadlines – refer to the official NMMSS page: https://www.myscheme.gov.in/schemes/nmmss.  "
+          },
+          {
+            "id": "q25",
+            "faithfulness": 0.75,
+            "statements": 12,
+            "unsupported": [
+              "Applicants must register with their vendor details on the portal.",
+              "Applicants must submit identity proof and vendor registration documents.",
+              "The loan is disbursed directly to the applicant's bank account."
+            ],
+            "answer_words": 165,
+            "answer_seconds": 1.39,
+            "answer": "**PM Street Vendor’s AtmaNirbhar Nidhi (PM SVANidhi)**  \n\n- **Who can get it?** Street vendors who need money to restart or expand their business [Source 1].  \n- **Loan amount:** Up to ₹10,000 [Source 1].  \n- **Interest rate:** Low 7 % [Source 1].  \n- **Guarantee / collateral:** None required [Source 1].  \n- **Processing fee:** None [Source 1].  \n- **Use of funds:** Any business‑related need – raw material, rent, equipment, etc. [Source 1].  \n- **Repayment period:** 1 year [Source 1][Source 2].  \n- **Purpose:** Helps vendors recover from COVID‑19 impact and become self‑reliant [Source 2].  \n\n**How to apply (brief steps)**  \n- Visit the official portal https://www.myscheme.gov.in/schemes/pm-svanidhi.  \n- Register with your vendor details.  \n- Submit the required documents (identity proof, vendor registration, etc.) as listed on the site.  \n- The loan is disbursed directly to your bank account.  \n\n*If you are a street vendor and need a small, guarantee‑free loan to restart, this scheme matches your need. You will need to confirm your vendor registration and provide standard ID documents.*"
+          },
+          {
+            "id": "q26",
+            "faithfulness": 1.0,
+            "statements": 11,
+            "unsupported": [],
+            "answer_words": 138,
+            "answer_seconds": 1.03,
+            "answer": "**Pradhan Mantri Awaas Yojana – Gramin (PMAY‑G)**  \n\n- **Who can get it** – Rural households that are **houseless** or living in **kutcha or dilapidated houses**. Beneficiaries are identified through the Socio‑Economic and Caste Census (SECC) and verified by the Gram Sabha [Source 2].  \n- **What is offered** – Construction of a **pucca house** (minimum 25 sq m) with basic amenities, including a dedicated cooking area [Source 2].  \n- **How the money is given** – The subsidy amount is transferred directly to the beneficiary’s Aadhaar‑linked bank or post‑office account [Source 2].  \n\n**What you still need to confirm**  \n- Exact documents required for proof of housing status and SECC eligibility (not listed in the provided information).  \n- The application procedure (the context does not detail steps).  \n\nFor complete details and to start the application, visit the official PMAY‑G page: https://www.myscheme.gov.in/schemes/pmay-g."
+          },
+          {
+            "id": "q27",
+            "faithfulness": 1.0,
+            "statements": 9,
+            "unsupported": [],
+            "answer_words": 157,
+            "answer_seconds": 1.01,
+            "answer": "**Stand‑Up India – Bank loan for SC/ST & women entrepreneurs**  \n\n- **Who can apply** – Any person who belongs to the Scheduled Caste (SC) or Scheduled Tribe (ST) category, or a woman, and is at least 18 years old【Source 2】.  \n- **What the scheme offers** – Bank loans ranging from **₹10 lakh to ₹1 crore** to set up a **greenfield enterprise** (new business) in manufacturing, services, trading or agri‑allied activities【Source 1】【Source 2】.  \n- **Key condition** – Each bank branch must grant at least one loan to an SC/ST borrower **and** at least one loan to a woman borrower for a greenfield non‑farm enterprise【Source 3】.  \n- **If the enterprise is not a sole proprietorship** – At least **51 % of the shareholding and control** must be held by the SC/ST or woman entrepreneur【Source 1】.  \n\n*Further details (documents, exact application steps, deadlines) are not provided in the available information. Please visit the official Stand‑Up India page for complete guidance.*"
+          },
+          {
+            "id": "q28",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 168,
+            "answer_seconds": 1.24,
+            "answer": "**Atal Pension Yojana (APY)**  \n- **Pension amount:** Choose a guaranteed pension of ₹1,000 – ₹5,000 per month after turning 60 [Source 1].  \n- **Eligibility:** Join between 18 and 40 years of age; contributions continue until age 60 [Source 4].  \n- **Key benefits:**  \n  - Same pension continues for the subscriber until death.  \n  - After the subscriber’s death, the spouse receives the same pension amount.  \n  - If both die, the nominee gets the accumulated pension wealth.  \n- **Tax benefit:** Contributions are deductible under section 80CCD(1) like NPS [Source 1].  \n\n**Pradhan Mantri Shram Yogi Maan‑dhan (PM‑SYM)**  \n- **Pension amount:** Minimum assured pension of ₹3,000 per month after age 60 [Source 2][Source 3].  \n- **Eligibility:** Unorganised workers aged 18‑40 with monthly income ≤ ₹15,000; must make regular contributions [Source 3].  \n\n**Indira Gandhi National Disability Pension Scheme (IGNDPS)**  \n- **Pension amount:** ₹300 per month (age 18‑79) or ₹500 per month (age 80+) [Source 5].  \n- **Eligibility:** Not specified in the provided excerpt.  \n\n*Only APY offers a guaranteed pension up to ₹5,000 per month.*"
+          },
+          {
+            "id": "q29",
+            "faithfulness": 1.0,
+            "statements": 11,
+            "unsupported": [],
+            "answer_words": 109,
+            "answer_seconds": 1.13,
+            "answer": "**Pradhan Mantri Mudra Yojana (PMMY)**  \n\n- **Who can apply?**  \n  - Non‑corporate, non‑farm micro‑ and small enterprises that run income‑generating activities such as manufacturing, trading, services, or allied‑to‑agriculture businesses (e.g., poultry, dairy, beekeeping)【Source 1】.  \n\n- **What is offered?**  \n  - Collateral‑free micro‑credit/loan up to **₹20 lakhs**.  \n  - Loans are provided through eligible Member Lending Institutions (public sector banks, etc.)【Source 1】.  \n\n- **Key benefit categories** (stage‑wise funding):  \n  - **Shishu:** up to ₹50,000  \n  - **Kishore:** ₹50,001 – ₹5 lakhs  \n  - **Tarun:** ₹5 lakhs – ₹10 lakhs  \n  - **Tarun Plus:** up to ₹20 lakhs for repeat borrowers【Source 4】.  \n\n*If you run a small non‑farm micro business, PMMY is the scheme that matches your need.*  "
+          },
+          {
+            "id": "q30",
+            "faithfulness": 0.909,
+            "statements": 11,
+            "unsupported": [
+              "The lender applies for guarantee cover from NCGTC on the startup's behalf."
+            ],
+            "answer_words": 183,
+            "answer_seconds": 1.22,
+            "answer": "**Credit Guarantee Scheme for Startups (CGSS)**  \n\n- **What it does** – Guarantees a part of the risk for banks, NBFCs or Venture Debt Funds that lend to DPIIT‑recognised startups, so the startups can get loans without providing collateral【Source 4】.  \n- **Guarantee limit** – Up to **₹20 crore** per eligible borrower【Source 3】【Source 4】.  \n- **Who can borrow** – The borrower must be a startup **recognised by DPIIT**, not in default with any lender, and not classified as a Non‑Performing Asset under RBI rules【Source 2】.  \n- **Who can lend** – Eligible lenders are:  \n  * Scheduled Commercial Banks and Financial Institutions  \n  * RBI‑registered NBFCs with a credit rating of BBB or higher and a net‑worth of at least **₹100 crore**【Source 2】.  \n\n**Key steps to get the guarantee**  \n1. Ensure your startup is DPIIT‑recognised and not in default.  \n2. Approach an eligible bank/NBFC/Venture Debt Fund that is a Member Institution of CGSS.  \n3. The lender will certify your eligibility and apply for guarantee cover from the National Credit Guarantee Trustee Company (NCGTC) on your behalf.  \n\n*Further details (documents, exact application process) are on the official CGSS page.*  "
+          }
+        ],
+        "out_of_scope": [
+          {
+            "id": "q31",
+            "correct_refusal": true,
+            "says_not_found": true,
+            "invents_details": false,
+            "answer": "**Ayushman Bharat – PM‑JAY**\n\n- The provided information does not contain any details about the benefits, eligibility, or other aspects of the Ayushman Bharat (PM‑JAY) health insurance scheme.  \n\nFor accurate and complete information, please visit the official Ayushman Bharat website or the scheme’s portal."
+          },
+          {
+            "id": "q32",
+            "correct_refusal": true,
+            "says_not_found": true,
+            "invents_details": false,
+            "answer": "**Ladli Behna Yojana – Madhya Pradesh**  \n- The provided information does not contain any details about this scheme, its eligibility, benefits, required documents, or the application steps.  \n- To apply, please visit the official Madhya Pradesh government portal or the scheme’s dedicated website for the latest instructions.  \n\n*No relevant source was found in the given context.*"
+          },
+          {
+            "id": "q33",
+            "correct_refusal": true,
+            "says_not_found": true,
+            "invents_details": false,
+            "answer": "The provided information does not contain any details about the winner of the 2011 Cricket World Cup. Please refer to a sports source or the official tournament website for that answer."
+          }
+        ]
+      }
+    },
+    "bge": {
+      "summary": {
+        "reranker": "BAAI/bge-reranker-base",
+        "judge": "qwen/qwen3.8-27b",
+        "recall_at_5": 0.967,
+        "recall_at_5_named": 0.938,
+        "recall_at_5_not_named": 1.0,
+        "scheme_recall_at_5": 1.0,
+        "mrr": 0.901,
+        "avg_retrieval_seconds": 5.508,
+        "eligibility_accuracy": 0.793,
+        "eligibility_strict_accuracy": 0.787,
+        "eligibility_precision": 0.483,
+        "eligibility_recall": 1.0,
+        "faithfulness": 0.983,
+        "avg_answer_seconds": 1.89,
+        "avg_answer_words": 113,
+        "correct_refusal_rate": 1.0
+      },
+      "details": {
+        "retrieval": [
+          {
+            "id": "q01",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "apy/eligibility",
+              "apy/benefits"
+            ],
+            "seconds": 4.23
+          },
+          {
+            "id": "q02",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-kisan/benefits",
+              "pm-kisan/exclusions"
+            ],
+            "seconds": 3.15
+          },
+          {
+            "id": "q03",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-kisan/exclusions",
+              "pm-kisan/exclusions"
+            ],
+            "seconds": 2.93
+          },
+          {
+            "id": "q04",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "kcc/documents",
+              "kcc/how_to_apply"
+            ],
+            "seconds": 5.72
+          },
+          {
+            "id": "q05",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmjjby/how_to_apply",
+              "pmjjby/eligibility"
+            ],
+            "seconds": 1.47
+          },
+          {
+            "id": "q06",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmjjby/benefits",
+              "pmjjby/eligibility"
+            ],
+            "seconds": 1.3
+          },
+          {
+            "id": "q07",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "nmmss/benefits",
+              "nmmss/eligibility"
+            ],
+            "seconds": 6.8
+          },
+          {
+            "id": "q08",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmmy/benefits",
+              "pmmy/how_to_apply"
+            ],
+            "seconds": 4.73
+          },
+          {
+            "id": "q09",
+            "names_scheme": true,
+            "rank": null,
+            "reciprocal_rank": 0.0,
+            "scheme_found": true,
+            "retrieved": [
+              "sui/how_to_apply",
+              "sui/how_to_apply"
+            ],
+            "seconds": 3.42
+          },
+          {
+            "id": "q10",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-svanidhi/benefits",
+              "pm-svanidhi/benefits"
+            ],
+            "seconds": 2.76
+          },
+          {
+            "id": "q11",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmuy/documents",
+              "pmuy/how_to_apply"
+            ],
+            "seconds": 3.23
+          },
+          {
+            "id": "q12",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmay-g/benefits",
+              "pmay-g/exclusions"
+            ],
+            "seconds": 7.83
+          },
+          {
+            "id": "q13",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "cgss/eligibility",
+              "cgss/how_to_apply"
+            ],
+            "seconds": 3.44
+          },
+          {
+            "id": "q14",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-sym/benefits",
+              "pm-sym/eligibility"
+            ],
+            "seconds": 3.99
+          },
+          {
+            "id": "q15",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "igndps/how_to_apply",
+              "igndps/eligibility"
+            ],
+            "seconds": 1.26
+          },
+          {
+            "id": "q16",
+            "names_scheme": false,
+            "rank": 5,
+            "reciprocal_rank": 0.2,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-kisan/exclusions",
+              "pm-sym/exclusions",
+              "apy/benefits",
+              "igndps/benefits",
+              "pm-sym/benefits"
+            ],
+            "seconds": 7.84
+          },
+          {
+            "id": "q17",
+            "names_scheme": true,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmfby/benefits",
+              "pmfby/benefits"
+            ],
+            "seconds": 5.83
+          },
+          {
+            "id": "q18",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmuy/benefits",
+              "pmuy/eligibility",
+              "pmay-g/benefits",
+              "pmay-g/benefits",
+              "kcc/eligibility"
+            ],
+            "seconds": 7.71
+          },
+          {
+            "id": "q19",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "igndps/benefits",
+              "igndps/eligibility",
+              "apy/benefits",
+              "pm-kisan/exclusions",
+              "pm-sym/benefits"
+            ],
+            "seconds": 7.25
+          },
+          {
+            "id": "q20",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmvs/benefits",
+              "pmvs/how_to_apply",
+              "nmmss/exclusions",
+              "sui/benefits",
+              "pm-svanidhi/description"
+            ],
+            "seconds": 7.47
+          },
+          {
+            "id": "q21",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmjjby/benefits",
+              "pmfby/benefits",
+              "pmfby/eligibility",
+              "apy/benefits",
+              "pm-sym/benefits"
+            ],
+            "seconds": 7.62
+          },
+          {
+            "id": "q22",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "kcc/benefits",
+              "kcc/benefits",
+              "pmfby/eligibility",
+              "pmfby/exclusions",
+              "pm-svanidhi/benefits"
+            ],
+            "seconds": 6.45
+          },
+          {
+            "id": "q23",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-kisan/benefits",
+              "kcc/benefits",
+              "pmfby/benefits",
+              "pmfby/eligibility",
+              "pm-kisan/eligibility"
+            ],
+            "seconds": 7.15
+          },
+          {
+            "id": "q24",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "nmmss/eligibility",
+              "pmvs/eligibility",
+              "nmmss/eligibility",
+              "pmvs/description",
+              "startup-playbook/guide"
+            ],
+            "seconds": 6.28
+          },
+          {
+            "id": "q25",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pm-svanidhi/benefits",
+              "pm-svanidhi/benefits",
+              "pmvs/benefits",
+              "startup-playbook/guide",
+              "startup-playbook/guide"
+            ],
+            "seconds": 7.51
+          },
+          {
+            "id": "q26",
+            "names_scheme": false,
+            "rank": 3,
+            "reciprocal_rank": 0.333,
+            "scheme_found": true,
+            "retrieved": [
+              "pmay-g/exclusions",
+              "pmuy/eligibility",
+              "pmay-g/benefits",
+              "startup-playbook/guide",
+              "startup-playbook/guide"
+            ],
+            "seconds": 6.98
+          },
+          {
+            "id": "q27",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "sui/description",
+              "startup-playbook/guide",
+              "startup-playbook/guide"
+            ],
+            "seconds": 8.37
+          },
+          {
+            "id": "q28",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "apy/benefits",
+              "pm-sym/benefits",
+              "apy/how_to_apply",
+              "pm-sym/benefits",
+              "igndps/benefits"
+            ],
+            "seconds": 6.93
+          },
+          {
+            "id": "q29",
+            "names_scheme": false,
+            "rank": 1,
+            "reciprocal_rank": 1.0,
+            "scheme_found": true,
+            "retrieved": [
+              "pmmy/benefits",
+              "startup-playbook/guide",
+              "pmmy/description",
+              "startup-playbook/guide",
+              "sui/description"
+            ],
+            "seconds": 7.69
+          },
+          {
+            "id": "q30",
+            "names_scheme": false,
+            "rank": 2,
+            "reciprocal_rank": 0.5,
+            "scheme_found": true,
+            "retrieved": [
+              "cgss/how_to_apply",
+              "cgss/eligibility",
+              "startup-playbook/guide",
+              "startup-playbook/guide",
+              "sui/description"
+            ],
+            "seconds": 7.91
+          }
+        ],
+        "eligibility": [
+          {
+            "id": "p01",
+            "extracted_profile": {
+              "age": 45,
+              "state": "Punjab",
+              "annual_income": 200000,
+              "occupation": "farmer"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "pmuy: expected not, got confirm",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p02",
+            "extracted_profile": {
+              "age": 20,
+              "state": "Haryana",
+              "annual_income": 300000,
+              "occupation": "student",
+              "education": "engineering"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "nmmss: expected not, got likely",
+              "pmvs: expected confirm, got likely",
+              "pmuy: expected not, got confirm",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p03",
+            "extracted_profile": {
+              "age": 30,
+              "gender": "female",
+              "state": "Bihar",
+              "occupation": "entrepreneur"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "pmuy: expected not, got likely",
+              "pmay-g: expected not, got confirm",
+              "cgss: expected not, got likely"
+            ]
+          },
+          {
+            "id": "p04",
+            "extracted_profile": {
+              "age": 35,
+              "state": "Uttar Pradesh",
+              "annual_income": 120000,
+              "occupation": "street vendor"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "pmuy: expected not, got confirm",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p05",
+            "extracted_profile": {
+              "age": 65,
+              "state": "Kerala",
+              "occupation": "retired"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "pmuy: expected not, got confirm",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p06",
+            "extracted_profile": {
+              "age": 28,
+              "state": "Odisha",
+              "occupation": "unemployed",
+              "disability": true
+            },
+            "differences": [
+              "pmuy: expected not, got confirm",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p07",
+            "extracted_profile": {
+              "age": 42,
+              "gender": "female",
+              "state": "Maharashtra",
+              "occupation": "farmer"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "pmuy: expected not, got likely",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p08",
+            "extracted_profile": {
+              "age": 15,
+              "state": "Rajasthan",
+              "annual_income": 150000,
+              "occupation": "student",
+              "education": "Class 9"
+            },
+            "differences": [
+              "pmvs: expected not, got likely",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p09",
+            "extracted_profile": {
+              "age": 33,
+              "state": "Karnataka",
+              "annual_income": 1200000,
+              "occupation": "salaried"
+            },
+            "differences": [
+              "apy: expected not, got likely",
+              "igndps: expected not, got confirm",
+              "pmuy: expected not, got confirm",
+              "pmay-g: expected not, got confirm"
+            ]
+          },
+          {
+            "id": "p10",
+            "extracted_profile": {
+              "age": 26,
+              "gender": "male",
+              "social_category": "General",
+              "occupation": "entrepreneur"
+            },
+            "differences": [
+              "igndps: expected not, got confirm",
+              "sui: expected not, got likely",
+              "pmay-g: expected not, got confirm"
+            ]
+          }
+        ],
+        "faithfulness": [
+          {
+            "id": "q01",
+            "faithfulness": 1.0,
+            "statements": 2,
+            "unsupported": [],
+            "answer_words": 22,
+            "answer_seconds": 0.59,
+            "answer": "**Age limit to join Atal Pension Yojana (APY)**  \n- Minimum joining age: **18 years**  \n- Maximum joining age: **40 years**  \n\n[Source 1]"
+          },
+          {
+            "id": "q02",
+            "faithfulness": 1.0,
+            "statements": 3,
+            "unsupported": [],
+            "answer_words": 28,
+            "answer_seconds": 1.26,
+            "answer": "**PM‑KISAN benefit**\n\n- Farmers receive **₹6,000 per year** for each eligible family.  \n- The amount is paid in **three equal installments of ₹2,000** every four months.  \n\n[Source 1]"
+          },
+          {
+            "id": "q03",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 127,
+            "answer_seconds": 1.08,
+            "answer": "**Who cannot get PM‑KISAN benefits**\n\n- Institutional land‑holders (any organization that owns land)【Source 1】  \n- Farmer families with members who are or were:\n  - Holders of constitutional posts  \n  - Ministers, State Ministers, Members of Lok Sabha, Rajya Sabha, State Legislative Assemblies or Councils, Mayors of Municipal Corporations, or Chairpersons of District Panchayats【Source 1】  \n- Serving or retired officers and employees of Central/State government ministries, departments, autonomous institutions, or regular local‑body employees (excluding multitasking staff/Class IV/Group D)【Source 1】  \n- Retired/superannuated pensioners whose monthly pension is ₹10,000 or more (excluding multitasking staff/Class IV/Group D)【Source 2】  \n- Anyone who paid income tax in the last assessment year【Source 2】  \n- Professionals such as doctors, engineers, lawyers, chartered accountants and architects who are registered with professional bodies and practice their profession【Source 2】"
+          },
+          {
+            "id": "q04",
+            "faithfulness": 1.0,
+            "statements": 8,
+            "unsupported": [],
+            "answer_words": 77,
+            "answer_seconds": 0.88,
+            "answer": "**Documents needed for Kisan Credit Card (KCC)**  \n\n- Application form  \n- Two passport‑size photographs  \n- Identity proof (e.g., Driving Licence, Aadhaar Card, Voter ID, Passport)  \n- Address proof (e.g., Driving Licence, Aadhaar Card)  \n- Certified proof of landholding from revenue authorities  \n- Cropping pattern details with acreage  \n- Security documents if loan amount exceeds the specified limits (above Rs. 1.60 lakhs / Rs. 3.00 lakhs)  \n- Any other documents as required by the sanctioning bank  \n\n[Source 1]"
+          },
+          {
+            "id": "q05",
+            "faithfulness": 1.0,
+            "statements": 9,
+            "unsupported": [],
+            "answer_words": 108,
+            "answer_seconds": 0.84,
+            "answer": "**How to apply for Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJY)**  \n\n**Eligibility (to confirm before applying)**\n- Age 18‑50 years  \n- Must have an individual bank or post‑office account【Source 2】\n\n**Application steps (offline)**\n1. Download the “Consent‑cum‑Declaration Form” from the link provided and print it【Source 1】.  \n2. Fill in the form, sign it, and attach self‑attested copies of the required documents.  \n3. Submit the completed form to the authorised official at your bank or post office.  \n4. The official will give you an “Acknowledgement Slip cum Certificate of Insurance”【Source 1】.\n\n*(Online option is also available, but the offline steps above are the ones detailed in the provided information.)*"
+          },
+          {
+            "id": "q06",
+            "faithfulness": 1.0,
+            "statements": 1,
+            "unsupported": [],
+            "answer_words": 15,
+            "answer_seconds": 0.86,
+            "answer": "**Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)**  \n- Yearly premium: **₹ 436 per subscriber**【Source 1】."
+          },
+          {
+            "id": "q07",
+            "faithfulness": 1.0,
+            "statements": 3,
+            "unsupported": [],
+            "answer_words": 30,
+            "answer_seconds": 0.7,
+            "answer": "**National Means‑cum‑Merit Scholarship Scheme (NMMSS)**  \n\n- Each fresh scholarship provides **₹12,000 per year** (₹1,000 per month) to the student. The scholarship can be continued up to Class XII. 【Source 1】"
+          },
+          {
+            "id": "q08",
+            "faithfulness": 1.0,
+            "statements": 5,
+            "unsupported": [],
+            "answer_words": 56,
+            "answer_seconds": 0.61,
+            "answer": "**Mudra loan categories**\n\n- **Shishu** – loans up to **₹50,000**【Source 1】  \n- **Kishore** – loans above **₹50,000** and up to **₹5 lakh**【Source 1】  \n- **Tarun** – loans above **₹5 lakh** and up to **₹10 lakh**【Source 1】  \n- **Tarun Plus** – loans up to **₹20 lakh** for entrepreneurs who have fully repaid a previous Tarun‑category loan【Source 1】"
+          },
+          {
+            "id": "q09",
+            "faithfulness": 1.0,
+            "statements": 8,
+            "unsupported": [],
+            "answer_words": 108,
+            "answer_seconds": 6.21,
+            "answer": "**Who can apply for Stand‑Up India?**  \n\n- The specific eligibility criteria (such as the categories of entrepreneurs or business types) are not detailed in the information I have.  \n- To know exactly who can apply, please check the official Stand‑Up India page: https://www.myscheme.gov.in/schemes/sui  \n\n**How to start the application**  \n\n- Visit the portal www.standupmitra.in and register [Source 1]  \n- Fill in personal and business details, including enterprise name, constitution, location, and whether you belong to SC, ST, or women category [Source 2]  \n- Indicate if you need hand‑holding support and submit the form [Source 1][Source 2]  \n\nIf you need the exact eligibility rules, refer to the scheme’s official website."
+          },
+          {
+            "id": "q10",
+            "faithfulness": 1.0,
+            "statements": 1,
+            "unsupported": [],
+            "answer_words": 23,
+            "answer_seconds": 0.99,
+            "answer": "**PM Street Vendor’s AtmaNirbhar Nidhi (PM SVANidhi)**  \n- A street vendor can receive a loan of **up to ₹10,000** under this scheme【Source 1】."
+          },
+          {
+            "id": "q11",
+            "faithfulness": 1.0,
+            "statements": 8,
+            "unsupported": [],
+            "answer_words": 83,
+            "answer_seconds": 0.83,
+            "answer": "**Documents Required for Pradhan Mantri Ujjwala Yojana (PMUY)**  \n\n- Valid photo ID  \n- Ration card of the state where you apply (or other State Govt. document showing family composition / self‑declaration for migrants)  \n- Proof of address – Aadhaar can serve as both ID and address proof if the connection is at the same address; otherwise a separate address proof is needed【Source 1】  \n- Bank account number and IFSC code  \n- Aadhaar (not mandatory for Assam and Meghalaya)【Source 1】  \n- Passport‑size photograph【Source 1】"
+          },
+          {
+            "id": "q12",
+            "faithfulness": 1.0,
+            "statements": 7,
+            "unsupported": [],
+            "answer_words": 48,
+            "answer_seconds": 0.54,
+            "answer": "**PMAY‑G – House‑building assistance**\n\n- The scheme gives **₹ 1,20,000 per unit** for houses in plain (non‑hilly) areas.  \n- For houses in hilly areas, difficult areas, and IAP districts (Himalayan states, North‑Eastern states, and UTs of Jammu & Kashmir), the assistance is **₹ 1,30,000 per unit**.  \n\n[Source 1]"
+          },
+          {
+            "id": "q13",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 90,
+            "answer_seconds": 0.83,
+            "answer": "**Eligibility for borrowing under the Credit Guarantee Scheme for Startups (CGSS)**  \n\n- The startup must be **recognised by DPIIT** as a startup in the official Gazette notifications.  \n- It must **not be in default** with any lending or investing institution and must not be classified as a **Non‑Performing Asset** under RBI guidelines.  \n- Its eligibility must be **certified by a Member Institution** (e.g., Axis Bank, Bank of Baroda, HDFC Bank) for the guarantee cover.  \n\nThese three conditions must all be met for a startup to borrow under CGSS.  \n\n[Source 1]"
+          },
+          {
+            "id": "q14",
+            "faithfulness": 1.0,
+            "statements": 2,
+            "unsupported": [],
+            "answer_words": 30,
+            "answer_seconds": 0.57,
+            "answer": "**Pension amount under Pradhan Mantri Shram Yogi Maan‑dhan (PM‑SYM)**  \n\n- The scheme guarantees a **minimum assured pension of ₹3,000 per month** once the subscriber reaches 60 years of age【Source 1】.  "
+          },
+          {
+            "id": "q15",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 127,
+            "answer_seconds": 1.56,
+            "answer": "**How to apply for the Indira Gandhi National Disability Pension (IGNDPS)**  \n\n- **Choose online or offline** method [Source 1]  \n- **Online route**  \n  1. Download the **UMANG app** or go to the UMANG website [Source 1]  \n  2. Log in with your mobile number and OTP [Source 1]  \n  3. Search for **“NSAP”** (National Social Assistance Programme) [Source 1]  \n  4. Click **“Apply Online”** [Source 1]  \n  5. Fill in basic details, select pension payment mode, upload a photo [Source 1]  \n  6. Submit the application [Source 1]  \n\n- **Offline route** – not detailed in the provided information; you would need to visit the official scheme page for offline steps.  \n\n*Eligibility basics (to confirm before applying):* age ≥ 18, Indian resident, disability > 80% (including dwarfs), and Below Poverty Line status [Source 2]."
+          },
+          {
+            "id": "q16",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 206,
+            "answer_seconds": 1.72,
+            "answer": "**Pradhan Mantri Shram Yogi Maan‑dhan (PM‑SYM)**  \n- **Who can join?**  \n  - Workers who are **not** in the organized sector, do **not** pay income tax, and are not members of EPF, NPS, ESIC or NPS‑Traders schemes [Source 2].  \n- **Benefit**  \n  - A guaranteed pension of **₹3,000 per month** after turning 60 [Source 5].  \n- **Key points**  \n  - The government matches your contribution 50 : 50 (your contribution ₹55‑₹200, same amount added by the centre) [Source 5].  \n  - If you die before 60, your spouse can continue the scheme and receive a family pension [Source 5].\n\n**Atal Pension Yojana (APY)** – open to all Indian citizens, including unorganised workers.  \n- **Benefit**  \n  - Guaranteed monthly pension of **₹1,000‑₹5,000** after age 60, plus spouse and nominee benefits [Source 3].  \n\n**Indira Gandhi National Disability Pension Scheme (IGNDPS)** – only for persons with disability, not based on earnings.  \n- **Benefit**  \n  - Pension of **₹300** (age 18‑79) or **₹500** (age 80+) per month [Source 4].\n\n*If you are an unorganised worker earning less than ₹15,000 a month, you are likely eligible for **PM‑SYM** (provided you do not pay income tax or belong to the excluded schemes). You would need to confirm that you are not a member of EPF, NPS, ESIC, or NPS‑Traders.*"
+          },
+          {
+            "id": "q17",
+            "faithfulness": 0.75,
+            "statements": 12,
+            "unsupported": [
+              "Application requires registration with an insurance company or portal.",
+              "Application requires submitting farm and crop details.",
+              "Application requires paying the premium or receiving subsidy."
+            ],
+            "answer_words": 154,
+            "answer_seconds": 6.35,
+            "answer": "**Pradhan Mantri Fasal Bima Yojana (PMFBY)**  \n\n- **What it covers** – Provides insurance for crop loss caused by drought, floods, and other natural disasters, as well as pests and diseases【Source 2】.  \n- **Premium cost** – Farmers pay a small premium (up to 2 % for Kharif food/oilseed crops, 1.5 % for Rabi, 5 % for commercial/horticultural). In North‑Eastern states, Jammu & Kashmir, and Himachal Pradesh the government pays the whole premium【Source 2】.  \n- **Claim settlement** – Claims are processed within two months after harvest, helping farmers get money quickly【Source 2】.  \n\n*How to apply* (brief steps from the official page):  \n\n- Register with a participating insurance company or through the online portal.  \n- Submit required farm and crop details.  \n- Pay the premium (or get it fully subsidised if you belong to the exempted regions).  \n\n*Documents needed* – Not listed in the provided information; please check the scheme’s official page for the exact list【Source 1】.  "
+          },
+          {
+            "id": "q18",
+            "faithfulness": 1.0,
+            "statements": 8,
+            "unsupported": [],
+            "answer_words": 147,
+            "answer_seconds": 4.13,
+            "answer": "**Pradhan Mantri Ujjwala Yojana (PMUY)**  \n\n- **Who can get it**: An adult woman from a poor household who does not already have an LPG connection. She must belong to one of the listed categories (SECC‑2011 poor list, SC/ST, PMAY‑A beneficiary, AAY, forest dwellers, MBC, tea‑garden tribes, river‑island residents) or submit a 14‑point declaration for a poor household [Source 2].  \n- **What is offered**:  \n  - Free LPG connection (deposit‑free).  \n  - First LPG refill and a stove (hot plate) at no cost.  \n  - Subsidy of ₹1,600 for a 14.2 kg cylinder or ₹1,150 for a 5 kg cylinder [Source 1].  \n\nIf you are an adult woman meeting any of the above categories and have no LPG connection, you are likely eligible. You will need to provide proof of category (e.g., SECC‑2011 certificate, PMAY‑A card, AAY card, etc.) or the 14‑point declaration. Further steps are on the official PMUY page."
+          },
+          {
+            "id": "q19",
+            "faithfulness": 1.0,
+            "statements": 7,
+            "unsupported": [],
+            "answer_words": 79,
+            "answer_seconds": 1.63,
+            "answer": "**Indira Gandhi National Disability Pension Scheme (IGNDPS)**  \n\n- **Benefit:**  \n  - Monthly pension of **₹300** for disabled persons aged 18‑79.  \n  - Monthly pension of **₹500** for disabled persons aged 80 and above【Source 1】.  \n\n- **Eligibility (relevant to the question):**  \n  - Must be a resident of India, aged 18 or older, and have a physical or mental disability of **more than 80%** (including dwarfs)【Source 2】.  \n\n*If you meet these conditions, you can apply for this scheme to receive the monthly pension.*  "
+          },
+          {
+            "id": "q20",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 202,
+            "answer_seconds": 4.01,
+            "answer": "**Pradhan Mantri Vidyalaxmi (PM‑Vidyalaxmi) Scheme**  \n\n*What it offers*  \n- Collateral‑free, guarantor‑free education loan for students admitted to Quality Higher Education Institutions (QHEIs) – i.e., top colleges. [Source 1]  \n- No upper limit on loan amount; covers tuition, hostel, mess, laptop, living expenses, etc. [Source 1]  \n- Government guarantees 75 % of the loan up to ₹7.5 lakh, regardless of family income. [Source 1]  \n- Interest subvention of 3 % for families earning ≤ ₹8 lakh per year (for loans up to ₹10 lakh). [Source 1]  \n- Repayment period up to 15 years after the moratorium (course period + 1 year). [Source 1]  \n\n*How to apply*  \n1. Visit the official PM‑Vidyalaxmi website. [Source 2]  \n2. Click **Login → Student Login → Create an Account**. [Source 2]  \n3. Register using AADHAAR; provide name, mobile, email and set a password (minimum 8 characters, mix of letters, numbers, symbols). [Source 2]  \n4. After registration, you can apply for the loan, interest subvention, and credit‑guarantee coverage. [Source 2]  \n\n*What you still need to confirm*  \n- Admission to a QHEI (the scheme’s eligibility).  \n- Your family’s annual income (to know if you qualify for the 3 % interest subvention).  \n\nFor full details, visit the scheme’s official page: https://www.myscheme.gov.in/schemes/pmvs."
+          },
+          {
+            "id": "q21",
+            "faithfulness": 1.0,
+            "statements": 5,
+            "unsupported": [],
+            "answer_words": 74,
+            "answer_seconds": 1.0,
+            "answer": "**Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)**  \n- **Cover:** Life insurance of **₹2  lakh** for one year【Source 1】  \n- **Eligibility:** Open to people aged **18‑50 years**【Source 1】  \n- **Premium:** **₹436 per year**, auto‑debit from bank/post office account【Source 1】  \n\nIf you are between 18 and 50 and can set up an auto‑debit, you can get the ₹2  lakh cover for the small yearly premium. Further details (documents, enrollment steps) are on the scheme’s official page."
+          },
+          {
+            "id": "q22",
+            "faithfulness": 1.0,
+            "statements": 11,
+            "unsupported": [],
+            "answer_words": 96,
+            "answer_seconds": 0.79,
+            "answer": "**Kisan Credit Card (KCC)**  \n\n- Provides short‑term credit specifically for crop cultivation.  \n- The credit limit is calculated as:  \n  *Finance needed for the crop* × *area cultivated*  \n  + 10 % for post‑harvest/household needs  \n  + 20 % for repair & maintenance of farm assets  \n  + insurance cover.  \n- For the second and later years, the first‑year limit is increased by 10 % each year and includes a term‑loan component for the five‑year card period.  \n- Short‑term loans have a separate sub‑limit and a distinct interest rate, with interest subvention and repayment incentives available.  \n\n[Source 1]  \n[Source 2]"
+          },
+          {
+            "id": "q23",
+            "faithfulness": 1.0,
+            "statements": 7,
+            "unsupported": [],
+            "answer_words": 63,
+            "answer_seconds": 4.18,
+            "answer": "**Pradhan Mantri Kisan Samman Nidhi (PM‑KISAN)**  \n- **Income support:** Yes. The scheme gives **₹6,000 per year** to each eligible farmer family, paid in three equal installments of ₹2,000 every four months【Source 1】.  \n- **Eligibility:** Any farmer family that **holds cultivable land in its name** can receive the benefit【Source 5】.  \n\nNo other scheme in the provided information offers a direct ₹6,000 annual cash support."
+          },
+          {
+            "id": "q24",
+            "faithfulness": 1.0,
+            "statements": 9,
+            "unsupported": [],
+            "answer_words": 177,
+            "answer_seconds": 1.72,
+            "answer": "**National Means‑cum‑Merit Scholarship Scheme (NMMSS)**  \n- **Who can apply?** Students who have cleared promotion from Class 8 to Class 9. The scholarship can be taken for classes 9‑12 [Source 1].  \n- **Key conditions**  \n  - Must stay in school without any gap of one academic session [Source 3].  \n  - For continuation in higher classes, a minimum of 60 % marks in Class 10 (relaxed by 5 % for SC/ST) is required [Source 1][Source 3].  \n- **Income requirement** – The scheme does **not** specify a low‑income family condition; it is based on academic merit and promotion criteria.  \n\n**Other schemes**  \n- **Pradhan Mantri Vidyalaxmi (PM‑Vidyalaxmi)** is for admission to higher‑education institutions (undergraduate/post‑graduate) and requires an annual family income up to ₹8 lakh, but it is **not** for Class 9 students [Source 2][Source 4].  \n\n**What still needs confirmation**  \n- If you are looking specifically for a scholarship that combines both Class 9 eligibility **and** a low‑income family criterion, the provided sources do not list such a scheme. You may need to check state‑level scholarships or other central schemes not covered here."
+          },
+          {
+            "id": "q25",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 185,
+            "answer_seconds": 1.82,
+            "answer": "**PM Street Vendor’s AtmaNirbhar Nidhi (PM SVANidhi)**  \n- Loan up to **₹10,000** to restart or expand a street‑vending business【Source 1】  \n- **7 % interest** rate, easy to repay【Source 1】  \n- **No collateral** or guarantor needed【Source 1】  \n- No processing fee【Source 1】  \n- Can be used for raw material, rent, equipment, etc.【Source 1】  \n- Repayment period **1 year**【Source 1】【Source 2】  \n- Available in all States and Union Territories【Source 2】\n\n**Pradhan Mantri Mudra Yojana (PMMY)** – for small businesses (including street vendors)  \n- Collateral‑free loans up to **₹20 lakh**【Source 4】  \n- Three categories: Shishu (≤ ₹50 k), Kishor (₹50 k‑₹5 lakh), Tarun (₹5‑₹10 lakh)【Source 4】  \n- Open to individuals, proprietorships, partnerships, companies, etc.【Source 4】\n\n**Pradhan Mantri Vidyalaxmi (PM‑Vidyalaxmi) – Education loan**  \n- Not a business loan; it offers collateral‑free education loans for students【Source 3】  \n- Mentioned here only to show it is **not** for street‑vendor business needs.  \n\n*If you are a street vendor looking for a small, guarantee‑free loan to restart, the PM SVANidhi scheme matches your need. You will still need to confirm your vendor registration and provide basic identity documents as per the official portal.*"
+          },
+          {
+            "id": "q26",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 310,
+            "answer_seconds": 2.59,
+            "answer": "**Pradhan Mantri Awaas Yojana – Gramin (PMAY‑G)**  \n- Gives ₹1.20 Lakh (plain) or ₹1.30 Lakh (hilly/difficult) financial help to build a permanent pucca house of at least 25 sq m【Source 3】.  \n- Families that already own a pucca roof, pucca walls, or a house with more than 2 rooms are **excluded**【Source 1】.  \n- Additional exclusion criteria include owning a motor vehicle, agricultural equipment, land ≥2.5 acres with irrigation, a Kisan Credit Card ≥₹50 000, any member earning >₹10 000/month, paying taxes, owning a refrigerator, landline phone, etc. If any of these apply, the family is automatically excluded【Source 1】.  \n\n**Pradhan Mantri Ujjwala Yojana (PMUY) – Ujjwala 2.0**  \n- Provides one LPG connection per house, which is also a benefit under PMAY‑G【Source 3】.  \n- An adult woman from a poor household without an LPG connection is eligible if she belongs to SECC‑2011 list, SC/ST, AAY, forest dwellers, MBC, tea‑garden tribes, river‑island residents, or can submit a 14‑point declaration for a poor household【Source 2】.  \n\n**Start‑up Village Entrepreneurship Programme (SVEP)** *(for non‑farm income to support housing)*  \n- Helps rural Self‑Help Group (SHG) members or their families start small non‑farm businesses, giving local business support and access to capital【Source 5】.  \n- While not a direct housing scheme, the income generated can be used to fund house construction.  \n\n**What to confirm**  \n- Whether the family meets any of the 13 automatic exclusion items for PMAY‑G.  \n- If an adult woman in the household satisfies one of the PMUY eligibility categories.  \n- If the family is part of an SHG to use SVEP support.  \n\n**Typical documents (common to both schemes)**  \n- Proof of residence in a village (ration card, Aadhaar).  \n- Income/poverty proof (SECC‑2011 list, AAY card, Kisan Credit Card details).  \n- Declaration that the household has no pucca house (for PMAY‑G).  \n\nFor exact forms and detailed steps, visit the official scheme pages linked in the sources."
+          },
+          {
+            "id": "q27",
+            "faithfulness": 0.75,
+            "statements": 12,
+            "unsupported": [
+              "Identity proof is a required document.",
+              "Proof of SC/ST or woman status is a required document.",
+              "A business plan is a required document."
+            ],
+            "answer_words": 216,
+            "answer_seconds": 1.47,
+            "answer": "**Stand‑Up India – Bank loan for SC/ST & women entrepreneurs**  \n\n- **What it is** – A Ministry of Finance scheme that gives bank loans of **₹10 lakh to ₹1 crore** to start a new (greenfield) business.  \n- **Who can apply** –  \n  - Must belong to **Scheduled Caste (SC) or Scheduled Tribe (ST)**, **or be a woman**.  \n  - Must be **18 years or older**.  \n  - At least one SC/ST borrower **and** one woman borrower must be taken per bank branch for a greenfield enterprise.  \n- **What businesses are covered** – New enterprises in **manufacturing, services, trading, or activities allied to agriculture**.  \n- **Shareholding rule for non‑individual firms** – If the enterprise is not a sole proprietorship, **≥ 51 % of shares and control must be held by the SC/ST or woman entrepreneur**.  \n\n**Typical documents needed** (as per the scheme’s description)  \n- Identity proof (Aadhaar, PAN, etc.)  \n- Proof of SC/ST or woman status  \n- Business plan for the greenfield project  \n- Bank‑related forms for loan application  \n\n**How to apply**  \n1. Approach a bank that participates in Stand‑Up India.  \n2. Submit the required documents and business plan.  \n3. The bank evaluates the loan request and disburses the amount if approved.  \n\n*All details are taken from the official scheme description* [Source 1] and the startup playbook summary [Source 3]."
+          },
+          {
+            "id": "q28",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 190,
+            "answer_seconds": 1.26,
+            "answer": "**Atal Pension Yojana (APY)**  \n- **Benefit:** Guarantees a monthly pension of **₹1,000 – ₹5,000** after the subscriber turns 60, depending on the chosen pension option. The same amount continues for the spouse after the subscriber’s death, and the accumulated pension wealth goes to the nominee after both die. [Source 1]  \n- **Tax help:** Contributions qualify for tax deduction under section 80CCD(1), like the NPS. [Source 1]  \n- **How to apply:**  \n  - **Online:** Use net‑banking, search “APY”, fill basic and nominee details, give auto‑debit consent, and submit. [Source 3]  \n  - **Alternate online route:** Visit the eNPS portal, select “Atal Pension Yojana”, complete KYC (Aadhaar OTP, virtual ID, or upload XML), get an acknowledgement number, then choose the desired pension amount. [Source 3]  \n- **Documents needed:** Not listed in the provided information; please check the official APY page for the exact list.  \n\n**Other schemes (for reference, not offering ₹5,000 pension):**  \n\n- **Pradhan Mantri Shram Yogi Maan‑dhan (PM‑SYM):** Minimum assured pension of **₹3,000** after 60; includes a 50:50 government matching contribution. [Source 2]  \n- **Indira Gandhi National Disability Pension Scheme (IGNDPS):** Pension of **₹300** (ages 18‑79) or **₹500** (80+) per month. [Source 5]  "
+          },
+          {
+            "id": "q29",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 127,
+            "answer_seconds": 2.31,
+            "answer": "**Pradhan Mantri Mudra Yojana (PMMY)**  \n\n- **Who can apply?**  \n  - Non‑corporate, non‑farm micro or small enterprises, including early‑stage businesses and startups that generate income in manufacturing, trading or services (e.g., shopkeepers, artisans, food‑service units)【Source 2】.  \n\n- **What you get:**  \n  - Collateral‑free micro‑credit in four categories:  \n    - **Shishu:** up to ₹50,000  \n    - **Kishore:** ₹50,000 – ₹5 lakh  \n    - **Tarun:** ₹5 lakh – ₹10 lakh  \n    - **Tarun Plus:** ₹10 lakh – ₹20 lakh for repeat borrowers【Source 1】【Source 4】.  \n\n- **How to apply:**  \n  - Visit any bank branch, NBFC or MFI that is a Member Lending Institution.  \n  - You can also apply online via the Jan Samarth Business Loan Portal or the Udyamimitra portal【Source 4】.  \n\n*No other scheme in the provided information specifically mentions loans for small non‑farm micro enterprises.*  "
+          },
+          {
+            "id": "q30",
+            "faithfulness": 1.0,
+            "statements": 12,
+            "unsupported": [],
+            "answer_words": 194,
+            "answer_seconds": 3.36,
+            "answer": "**Credit Guarantee Scheme for Startups (CGSS)**  \n\n- **Who can benefit?**  \n  - Startups that are **recognised by DPIIT** (as per Gazette notifications). [Source 2]  \n\n- **What does the scheme provide?**  \n  - A **government guarantee** (up to ₹20 crore or the actual loan amount, whichever is lower) to lenders, so banks, NBFCs and AIFs can lend to startups without demanding collateral. [Source 4]  \n\n- **How does a startup get the guarantee?**  \n  1. **Be DPIIT‑recognised** and not in default with any lender. [Source 2]  \n  2. Approach a **Member Institution (MI)** – a scheduled bank, RBI‑registered NBFC (rating BBB or above, net‑worth ≥ ₹100 cr) or SEBI‑registered AIF. [Source 2][Source 4]  \n  3. The MI evaluates the loan as per its normal lending rules and, if satisfied, applies for guarantee cover on the NCGTC portal. [Source 1]  \n\n- **Documents / steps for the startup** (brief):  \n  - DPIIT recognition certificate.  \n  - No default/NPA status with any lender.  \n  - Submit loan request to an eligible MI, which will handle the guarantee application.  \n\n*If you have a DPIIT‑recognised startup and can approach an eligible bank/NBFC/AIF, you are likely eligible for CGSS. Confirmation of DPIIT status and clean credit history is still needed.*  "
+          }
+        ],
+        "out_of_scope": [
+          {
+            "id": "q31",
+            "correct_refusal": true,
+            "says_not_found": true,
+            "invents_details": false,
+            "answer": "**Ayushman Bharat – PM‑JAY**\n\n- The information about the benefits of the Ayushman Bharat PM‑JAY health insurance scheme is not included in the provided context.  \n- Please visit the official scheme page or the Ministry of Health and Family Welfare website for the detailed benefits.  \n\n[Source not available in the given context]"
+          },
+          {
+            "id": "q32",
+            "correct_refusal": true,
+            "says_not_found": true,
+            "invents_details": false,
+            "answer": "I’m sorry, but the information you provided does not include any details about the **Ladli Behna Yojana** in Madhya Pradesh—such as its eligibility, required documents, or application steps.  \n\nFor accurate and up‑to‑date instructions, please visit the official website of the scheme or contact the relevant state department."
+          },
+          {
+            "id": "q33",
+            "correct_refusal": true,
+            "says_not_found": true,
+            "invents_details": false,
+            "answer": "The information you provided does not contain any details about cricket World Cups. Please refer to a sports source or the official cricket board website for that answer."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,463 @@
+{
+  "how_to_read": {
+    "questions": "For Recall@5 and MRR. A retrieved chunk is a HIT if its scheme_id is in expected_scheme_ids AND its section_type is in expected_sections. Section types: description, eligibility, exclusions, benefits, documents, how_to_apply.",
+    "profiles": "For eligibility accuracy. The description goes through the full pipeline (profile extraction + rule check). expected_likely_eligible and expected_needs_confirmation follow the OFFICIAL criteria (not our rules); every other scheme is expected to be 'Not eligible'. The startup-playbook is a guide, not a scheme, so it is not scored.",
+    "checked_by_team": false,
+    "out_of_scope": "Questions with out_of_scope=true have no correct scheme. The answer must say the information was not found and must not invent details. They are used only for the correct refusal rate."
+  },
+  "questions": [
+    {
+      "id": "q01",
+      "question": "What is the age limit to join Atal Pension Yojana?",
+      "expected_scheme_ids": [
+        "apy"
+      ],
+      "expected_sections": [
+        "eligibility"
+      ]
+    },
+    {
+      "id": "q02",
+      "question": "How much money do farmers get under PM-KISAN?",
+      "expected_scheme_ids": [
+        "pm-kisan"
+      ],
+      "expected_sections": [
+        "benefits",
+        "description"
+      ]
+    },
+    {
+      "id": "q03",
+      "question": "Who is not eligible for PM-KISAN?",
+      "expected_scheme_ids": [
+        "pm-kisan"
+      ],
+      "expected_sections": [
+        "exclusions"
+      ]
+    },
+    {
+      "id": "q04",
+      "question": "What documents are needed for the Kisan Credit Card?",
+      "expected_scheme_ids": [
+        "kcc"
+      ],
+      "expected_sections": [
+        "documents"
+      ]
+    },
+    {
+      "id": "q05",
+      "question": "How do I apply for PMJJBY?",
+      "expected_scheme_ids": [
+        "pmjjby"
+      ],
+      "expected_sections": [
+        "how_to_apply"
+      ]
+    },
+    {
+      "id": "q06",
+      "question": "What is the yearly premium for Pradhan Mantri Jeevan Jyoti Bima Yojana?",
+      "expected_scheme_ids": [
+        "pmjjby"
+      ],
+      "expected_sections": [
+        "benefits"
+      ]
+    },
+    {
+      "id": "q07",
+      "question": "How much scholarship does NMMSS give each year?",
+      "expected_scheme_ids": [
+        "nmmss"
+      ],
+      "expected_sections": [
+        "benefits"
+      ]
+    },
+    {
+      "id": "q08",
+      "question": "What are the loan categories under Mudra Yojana?",
+      "expected_scheme_ids": [
+        "pmmy"
+      ],
+      "expected_sections": [
+        "benefits"
+      ]
+    },
+    {
+      "id": "q09",
+      "question": "Who can apply for Stand-Up India?",
+      "expected_scheme_ids": [
+        "sui"
+      ],
+      "expected_sections": [
+        "eligibility"
+      ]
+    },
+    {
+      "id": "q10",
+      "question": "How much loan can a street vendor get under PM SVANidhi?",
+      "expected_scheme_ids": [
+        "pm-svanidhi"
+      ],
+      "expected_sections": [
+        "benefits"
+      ]
+    },
+    {
+      "id": "q11",
+      "question": "What documents do I need for Ujjwala Yojana?",
+      "expected_scheme_ids": [
+        "pmuy"
+      ],
+      "expected_sections": [
+        "documents"
+      ]
+    },
+    {
+      "id": "q12",
+      "question": "How much money is given to build a house under PMAY-G?",
+      "expected_scheme_ids": [
+        "pmay-g"
+      ],
+      "expected_sections": [
+        "benefits"
+      ]
+    },
+    {
+      "id": "q13",
+      "question": "Which startups can borrow under the Credit Guarantee Scheme for Startups?",
+      "expected_scheme_ids": [
+        "cgss"
+      ],
+      "expected_sections": [
+        "eligibility"
+      ]
+    },
+    {
+      "id": "q14",
+      "question": "What is the pension amount under PM Shram Yogi Maan-dhan?",
+      "expected_scheme_ids": [
+        "pm-sym"
+      ],
+      "expected_sections": [
+        "benefits"
+      ]
+    },
+    {
+      "id": "q15",
+      "question": "How do I apply for the Indira Gandhi National Disability Pension?",
+      "expected_scheme_ids": [
+        "igndps"
+      ],
+      "expected_sections": [
+        "how_to_apply"
+      ]
+    },
+    {
+      "id": "q16",
+      "question": "Is there a pension scheme for unorganised workers earning less than 15,000 a month?",
+      "expected_scheme_ids": [
+        "pm-sym"
+      ],
+      "expected_sections": [
+        "eligibility",
+        "benefits",
+        "description"
+      ]
+    },
+    {
+      "id": "q17",
+      "question": "I want crop insurance against drought and floods. Which scheme helps?",
+      "expected_scheme_ids": [
+        "pmfby"
+      ],
+      "expected_sections": [
+        "benefits",
+        "description",
+        "eligibility"
+      ]
+    },
+    {
+      "id": "q18",
+      "question": "Is there a scheme that gives a free LPG gas connection to poor women?",
+      "expected_scheme_ids": [
+        "pmuy"
+      ],
+      "expected_sections": [
+        "benefits",
+        "eligibility",
+        "description"
+      ]
+    },
+    {
+      "id": "q19",
+      "question": "Which scheme gives a monthly pension to people with severe disability?",
+      "expected_scheme_ids": [
+        "igndps"
+      ],
+      "expected_sections": [
+        "benefits",
+        "eligibility",
+        "description"
+      ]
+    },
+    {
+      "id": "q20",
+      "question": "I need a collateral-free education loan for a top college.",
+      "expected_scheme_ids": [
+        "pmvs"
+      ],
+      "expected_sections": [
+        "benefits",
+        "description",
+        "eligibility"
+      ]
+    },
+    {
+      "id": "q21",
+      "question": "Is there life insurance cover of 2 lakh for a small yearly premium?",
+      "expected_scheme_ids": [
+        "pmjjby"
+      ],
+      "expected_sections": [
+        "benefits"
+      ]
+    },
+    {
+      "id": "q22",
+      "question": "Which scheme gives farmers short-term credit for growing crops?",
+      "expected_scheme_ids": [
+        "kcc"
+      ],
+      "expected_sections": [
+        "description",
+        "benefits"
+      ]
+    },
+    {
+      "id": "q23",
+      "question": "Is there income support of 6000 rupees a year for farmers?",
+      "expected_scheme_ids": [
+        "pm-kisan"
+      ],
+      "expected_sections": [
+        "benefits",
+        "description"
+      ]
+    },
+    {
+      "id": "q24",
+      "question": "Scholarship for Class 9 students from low-income families",
+      "expected_scheme_ids": [
+        "nmmss"
+      ],
+      "expected_sections": [
+        "eligibility",
+        "benefits",
+        "description"
+      ]
+    },
+    {
+      "id": "q25",
+      "question": "Small loan without guarantee for street vendors to restart their business",
+      "expected_scheme_ids": [
+        "pm-svanidhi"
+      ],
+      "expected_sections": [
+        "benefits",
+        "description"
+      ]
+    },
+    {
+      "id": "q26",
+      "question": "Help for houseless families in villages to build a pucca house",
+      "expected_scheme_ids": [
+        "pmay-g"
+      ],
+      "expected_sections": [
+        "description",
+        "benefits",
+        "eligibility"
+      ]
+    },
+    {
+      "id": "q27",
+      "question": "Bank loan between 10 lakh and 1 crore for SC/ST or women entrepreneurs",
+      "expected_scheme_ids": [
+        "sui"
+      ],
+      "expected_sections": [
+        "benefits",
+        "eligibility",
+        "description"
+      ]
+    },
+    {
+      "id": "q28",
+      "question": "Guaranteed pension of up to 5000 rupees a month after age 60",
+      "expected_scheme_ids": [
+        "apy"
+      ],
+      "expected_sections": [
+        "benefits",
+        "description"
+      ]
+    },
+    {
+      "id": "q29",
+      "question": "Which scheme gives business loans to small non-farm micro enterprises?",
+      "expected_scheme_ids": [
+        "pmmy"
+      ],
+      "expected_sections": [
+        "description",
+        "benefits",
+        "eligibility"
+      ]
+    },
+    {
+      "id": "q30",
+      "question": "Credit guarantee for bank loans to DPIIT-recognised startups",
+      "expected_scheme_ids": [
+        "cgss"
+      ],
+      "expected_sections": [
+        "description",
+        "eligibility"
+      ]
+    },
+    {
+      "id": "q31",
+      "question": "What are the benefits of the Ayushman Bharat PM-JAY health insurance scheme?",
+      "out_of_scope": true,
+      "note": "Scheme not in our data."
+    },
+    {
+      "id": "q32",
+      "question": "How do I apply for the Ladli Behna Yojana in Madhya Pradesh?",
+      "out_of_scope": true,
+      "note": "State scheme from a state we do not have."
+    },
+    {
+      "id": "q33",
+      "question": "Who won the cricket World Cup in 2011?",
+      "out_of_scope": true,
+      "note": "Not about government schemes."
+    }
+  ],
+  "profiles": [
+    {
+      "id": "p01",
+      "description": "I am a 45 year old farmer from Punjab. I own 2 acres of land and my family income is about 2 lakh a year.",
+      "expected_likely_eligible": [
+        "pm-kisan",
+        "pmfby",
+        "kcc",
+        "pmjjby"
+      ],
+      "expected_needs_confirmation": [],
+      "note": "Not APY: over 40."
+    },
+    {
+      "id": "p02",
+      "description": "I am a 20-year-old engineering student from Haryana and my family income is under 3 lakh.",
+      "expected_likely_eligible": [
+        "apy",
+        "pmjjby"
+      ],
+      "expected_needs_confirmation": [
+        "pmvs"
+      ],
+      "note": "Not NMMSS: it is for school students in Class 9-12. PM-Vidyalaxmi needs confirmation: it depends on admission to a listed institution."
+    },
+    {
+      "id": "p03",
+      "description": "I am a 30 year old woman from Bihar and I want to start a small tailoring business.",
+      "expected_likely_eligible": [
+        "pmmy",
+        "sui",
+        "apy",
+        "pmjjby"
+      ],
+      "expected_needs_confirmation": [],
+      "note": "Not CGSS: needs a DPIIT-recognised startup. Not PMUY: nothing said about a poor household without LPG."
+    },
+    {
+      "id": "p04",
+      "description": "I sell vegetables from a cart in Lucknow. I am 35 and earn about 10,000 rupees a month.",
+      "expected_likely_eligible": [
+        "pm-svanidhi",
+        "pm-sym",
+        "pmmy",
+        "apy",
+        "pmjjby"
+      ],
+      "expected_needs_confirmation": [],
+      "note": ""
+    },
+    {
+      "id": "p05",
+      "description": "I am 65 years old and retired, living in Kerala.",
+      "expected_likely_eligible": [],
+      "expected_needs_confirmation": [],
+      "note": "Too old for APY, PM-SYM and PMJJBY; no disability, farming or business mentioned."
+    },
+    {
+      "id": "p06",
+      "description": "I am 28 years old with 90% locomotor disability, from a BPL family in Odisha. I am unemployed.",
+      "expected_likely_eligible": [
+        "igndps",
+        "apy",
+        "pmjjby"
+      ],
+      "expected_needs_confirmation": [],
+      "note": ""
+    },
+    {
+      "id": "p07",
+      "description": "I am a 42-year-old woman farmer from Maharashtra with land in my name.",
+      "expected_likely_eligible": [
+        "pm-kisan",
+        "pmfby",
+        "kcc",
+        "pmjjby"
+      ],
+      "expected_needs_confirmation": [],
+      "note": "Not APY: over 40. Not PMUY: nothing said about a poor household without LPG."
+    },
+    {
+      "id": "p08",
+      "description": "I am 15 and study in Class 9 in a government school in Rajasthan. My parents earn 1.5 lakh a year.",
+      "expected_likely_eligible": [
+        "nmmss"
+      ],
+      "expected_needs_confirmation": [],
+      "note": "Not PM-Vidyalaxmi: it is for higher education. Under 18, so not APY or PMJJBY."
+    },
+    {
+      "id": "p09",
+      "description": "I am a 33 year old software engineer in Bengaluru earning 12 lakh a year.",
+      "expected_likely_eligible": [
+        "pmjjby"
+      ],
+      "expected_needs_confirmation": [],
+      "note": "Not APY: income tax payers cannot join APY (since October 2022)."
+    },
+    {
+      "id": "p10",
+      "description": "I am 26, a general category man, and I run a DPIIT-recognised tech startup in Pune.",
+      "expected_likely_eligible": [
+        "cgss",
+        "pmmy",
+        "apy",
+        "pmjjby"
+      ],
+      "expected_needs_confirmation": [],
+      "note": "Not Stand-Up India: a man must be SC/ST."
+    }
+  ]
+}
