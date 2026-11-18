@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 # rag_pipeline loads the models and ChromaDB once, when the server starts.
 from rag_pipeline import ask_sahayak, DISCLAIMER
 from profile_extractor import (
-    UserProfile, extract_profile, merge_profiles,
+    UserProfile, extract_new_details, merge_profiles,
     get_follow_up_questions, has_personal_details,
 )
 from eligibility import find_matching_schemes
@@ -125,7 +125,7 @@ def scheme_detail(scheme_id: str):
 def profile_extract(request: ExtractRequest):
     """Plain text -> structured profile, merged with the profile we already have."""
 
-    new_profile = extract_profile(request.text)
+    new_profile = extract_new_details(request.text)
     profile = merge_profiles(to_dict(request.profile), new_profile)
 
     return {
@@ -164,16 +164,14 @@ def chat(
 
     start = time.perf_counter()
 
-    # Step 1: Update the profile from the message.
+    # Step 1: Update the profile from the message. New details replace
+    # old ones (a new age, state or occupation wins over the saved one).
     # Skip the LLM call when the message has no personal details.
+    # If the LLM fails, simple rules still catch age, state and occupation.
     profile = merge_profiles(to_dict(request.profile), {})
 
     if has_personal_details(request.message):
-        try:
-            profile = merge_profiles(profile, extract_profile(request.message))
-        except Exception as error:
-            # If the LLM is down, keep the profile we have and continue.
-            print(f"Profile extraction failed: {error}")
+        profile = merge_profiles(profile, extract_new_details(request.message))
 
     extract_seconds = time.perf_counter() - start
 

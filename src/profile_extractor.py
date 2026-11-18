@@ -104,6 +104,84 @@ def has_personal_details(message):
 
 
 # --------------------------------------------------
+# 3b. BACKUP: FIND AGE, STATE AND OCCUPATION WITH SIMPLE RULES
+# --------------------------------------------------
+# If the LLM call fails (Groq rate limit, timeout) or leaves a field
+# empty, these rules still catch the clear cases, so "I am a 45 year
+# old farmer from Punjab" always replaces an old age, state and job.
+
+STATE_NAMES = {
+    "andhra pradesh": "Andhra Pradesh", "arunachal pradesh": "Arunachal Pradesh",
+    "assam": "Assam", "bihar": "Bihar", "chhattisgarh": "Chhattisgarh", "goa": "Goa",
+    "gujarat": "Gujarat", "haryana": "Haryana", "himachal pradesh": "Himachal Pradesh",
+    "jharkhand": "Jharkhand", "karnataka": "Karnataka", "kerala": "Kerala",
+    "madhya pradesh": "Madhya Pradesh", "maharashtra": "Maharashtra", "manipur": "Manipur",
+    "meghalaya": "Meghalaya", "mizoram": "Mizoram", "nagaland": "Nagaland", "odisha": "Odisha",
+    "punjab": "Punjab", "rajasthan": "Rajasthan", "sikkim": "Sikkim", "tamil nadu": "Tamil Nadu",
+    "telangana": "Telangana", "tripura": "Tripura", "uttar pradesh": "Uttar Pradesh",
+    "uttarakhand": "Uttarakhand", "west bengal": "West Bengal", "delhi": "Delhi",
+    "jammu and kashmir": "Jammu and Kashmir", "ladakh": "Ladakh",
+    "puducherry": "Puducherry", "chandigarh": "Chandigarh",
+}
+
+# word in the message -> occupation (must be one of the Occupation values)
+OCCUPATION_WORDS = {
+    "farmer": "farmer", "kisan": "farmer", "student": "student",
+    "entrepreneur": "entrepreneur", "street vendor": "street vendor",
+    "unemployed": "unemployed", "homemaker": "homemaker", "housewife": "homemaker",
+    "retired": "retired", "salaried": "salaried",
+}
+
+
+def find_details_with_rules(message):
+    """Return only the details the rules are sure about, e.g. {"age": 45, "state": "Punjab"}."""
+
+    text = message.lower()
+    found = {}
+
+    # "45 year old", "45-year-old", "45 yrs old", "age 45", "aged 45", "I am 45", "I'm 45"
+    # ("I studied for 3 years" is not an age, so "old" or "I am" is needed.)
+    age = (
+        re.search(r"\b(\d{1,3})[\s-]*(?:years?|yrs?)[\s-]*old\b", text)
+        or re.search(r"\baged?\s*(?:is\s*)?(\d{1,3})\b", text)
+        or re.search(r"\b(?:i am|i'm|im)\s+(\d{1,3})\b(?!\s*(?:lakh|rs|rupees|%))", text)
+    )
+    if age and 0 < int(age.group(1)) < 120:
+        found["age"] = int(age.group(1))
+
+    # Only one state named: if two are named we cannot tell which is home.
+    states = [name for word, name in STATE_NAMES.items() if re.search(r"\b" + word + r"\b", text)]
+    if len(states) == 1:
+        found["state"] = states[0]
+
+    # Only one occupation named, for the same reason.
+    jobs = {job for word, job in OCCUPATION_WORDS.items() if re.search(r"\b" + word + r"s?\b", text)}
+    if len(jobs) == 1:
+        found["occupation"] = jobs.pop()
+
+    return found
+
+
+def extract_new_details(message):
+    """
+    The details to update from one chat message:
+      1. the rules above (always work, no AI)
+      2. the LLM (understands everything else); where it found a value, it wins
+    If the LLM fails, the rule details are still returned.
+    """
+
+    details = find_details_with_rules(message)
+
+    try:
+        llm_details = extract_profile(message)
+        details.update({field: value for field, value in llm_details.items() if value is not None})
+    except Exception as error:
+        print(f"Profile extraction (LLM) failed, using rules only: {error}")
+
+    return details
+
+
+# --------------------------------------------------
 # 4. MERGE WITH THE SAVED PROFILE
 # --------------------------------------------------
 
@@ -148,6 +226,12 @@ def get_follow_up_questions(profile):
 if __name__ == "__main__":
     for message in ["How do I apply for APY?", "my income is 2 lakh", "I am a woman from Bihar"]:
         print(f"{message!r}: personal details = {has_personal_details(message)}")
+
+    # New details must replace the old ones (age, state, occupation).
+    old = {"age": 20, "state": "Haryana", "occupation": "student"}
+    message = "I am a 45 year old farmer from Punjab"
+    print("Rules only:", find_details_with_rules(message))
+    print("Merged:", merge_profiles(old, extract_new_details(message)))
 
     text = (
         "I am a 20-year-old engineering student from Haryana "

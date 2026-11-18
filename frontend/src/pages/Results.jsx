@@ -39,6 +39,14 @@ export default function Results() {
 
       // The backend returns the updated profile: this is the chat "memory".
       setProfile(data.profile)
+
+      // Some answers (e.g. "where can I apply?") have no scheme cards. Keep
+      // the old cards, unless the message changed the profile: then the old
+      // cards are for the old profile, so re-check eligibility (no AI, instant).
+      let matches = data.matches.length > 0 ? data.matches : chat.matches
+      if (data.matches.length === 0 && JSON.stringify(data.profile) !== JSON.stringify(profile)) {
+        matches = (await matchSchemes(data.profile)).matches
+      }
       setChat({
         messages: [...messages, {
           role: 'assistant',
@@ -50,7 +58,7 @@ export default function Results() {
           centres: data.centres,           // only for "where can I apply?" answers
           centre_location: data.centre_location,
         }],
-        matches: data.matches.length > 0 ? data.matches : chat.matches,
+        matches,
         followUps: data.follow_up_questions,
         conversationId: data.conversation_id,  // the next message continues this chat
       })

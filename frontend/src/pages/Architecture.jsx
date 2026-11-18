@@ -64,7 +64,7 @@ export default function Architecture() {
                 Ingestion & indexing
               </h2>
               <span className="inline-flex items-center gap-1.5 text-sm font-semibold px-3 py-1 rounded-full bg-saffron-100 text-saffron-700 border border-saffron-200">
-                <RefreshCw className="w-4 h-4" /> Planned weekly refresh
+                <RefreshCw className="w-4 h-4" /> Weekly refresh (every Sunday)
               </span>
             </div>
             <Flow items={offline} />
@@ -89,7 +89,7 @@ export default function Architecture() {
           <p className="sm:col-span-3 xl:col-span-1 text-sm font-semibold text-slate-500">Supporting services</p>
           {[
             { Icon: Database, title: 'SQLite', sub: 'Users, profiles, history, feedback' },
-            { Icon: MapPin, title: 'Service centre finder (map)', sub: 'Nearest CSC by location / PIN' },
+            { Icon: MapPin, title: 'Service centre finder (map)', sub: 'Banks, post offices and CSCs by location or PIN' },
           ].map(({ Icon, title, sub }) => (
             <div key={title} className="rounded-xl border-2 border-dashed border-navy-200 bg-white p-4 flex gap-3">
               <span className="w-10 h-10 rounded-lg bg-navy-50 text-navy-700 grid place-items-center shrink-0"><Icon className="w-5 h-5" /></span>

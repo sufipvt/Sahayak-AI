@@ -123,6 +123,11 @@ IGNDPS (disability unknown) and PMUY (gender unknown) give "Needs confirmation" 
   every 5 s while running), refresh log, service centres (list/add/delete), schemes table
   (`GET /api/admin/schemes`: fetched_at, hash, sections, verified; amber row + "rules may need
   re-check" when a refresh changed the scheme and it is still unverified). Evaluation placeholder removed.
+  Fix (18 Nov): new details in a chat message now always replace the old age / state / occupation.
+  Cause: when the LLM profile extraction failed (Groq error), `api.py` silently kept the old profile.
+  Now `extract_new_details` (profile_extractor.py) uses simple rules for age, state and occupation
+  as a backup (the LLM wins where it found a value), and Results.jsx re-checks eligibility when the
+  profile changed but the answer had no scheme cards (e.g. a centre-finder answer).
 - Next:
   1. Eligibility fix (if time before 19 Nov): add real rules from official criteria (education level
      for NMMSS/PM-Vidyalaxmi, income-tax payer for APY, SC/ST-or-woman for Stand-Up India, basic
